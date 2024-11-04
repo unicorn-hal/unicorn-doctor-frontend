@@ -10,6 +10,7 @@ import { AuthProvider, useAuth } from "./components/providers/AuthProvider";
 // Create a new router instance
 const router = createRouter({
 	routeTree,
+	// biome-ignore lint/style/noNonNullAssertion: <explanation>
 	context: undefined!,
 });
 
@@ -27,6 +28,7 @@ function InnerApp() {
 }
 
 // Render the app
+// biome-ignore lint/style/noNonNullAssertion: <explanation>
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);

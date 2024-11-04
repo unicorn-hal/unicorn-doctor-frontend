@@ -10,101 +10,152 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as IndexImport } from './routes/index'
-import { Route as SigninIndexImport } from './routes/signin/index'
-import { Route as DoctorsHomeIndexImport } from './routes/doctors/home/index'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as LayoutImport } from "./routes/_layout";
+import { Route as IndexImport } from "./routes/index";
+import { Route as SigninIndexImport } from "./routes/signin/index";
+import { Route as LayoutDoctorsHomeIndexImport } from "./routes/_layout/doctors/home/index";
+import { Route as LayoutDoctorsChatIndexImport } from "./routes/_layout/doctors/chat/index";
 
 // Create/Update Routes
 
+const LayoutRoute = LayoutImport.update({
+	id: "/_layout",
+	getParentRoute: () => rootRoute,
+} as any);
+
 const IndexRoute = IndexImport.update({
-  path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
+	path: "/",
+	getParentRoute: () => rootRoute,
+} as any);
 
 const SigninIndexRoute = SigninIndexImport.update({
-  path: '/signin/',
-  getParentRoute: () => rootRoute,
-} as any)
+	path: "/signin/",
+	getParentRoute: () => rootRoute,
+} as any);
 
-const DoctorsHomeIndexRoute = DoctorsHomeIndexImport.update({
-  path: '/doctors/home/',
-  getParentRoute: () => rootRoute,
-} as any)
+const LayoutDoctorsHomeIndexRoute = LayoutDoctorsHomeIndexImport.update({
+	path: "/doctors/home/",
+	getParentRoute: () => LayoutRoute,
+} as any);
+
+const LayoutDoctorsChatIndexRoute = LayoutDoctorsChatIndexImport.update({
+	path: "/doctors/chat/",
+	getParentRoute: () => LayoutRoute,
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/signin/': {
-      id: '/signin/'
-      path: '/signin'
-      fullPath: '/signin'
-      preLoaderRoute: typeof SigninIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/doctors/home/': {
-      id: '/doctors/home/'
-      path: '/doctors/home'
-      fullPath: '/doctors/home'
-      preLoaderRoute: typeof DoctorsHomeIndexImport
-      parentRoute: typeof rootRoute
-    }
-  }
+declare module "@tanstack/react-router" {
+	interface FileRoutesByPath {
+		"/": {
+			id: "/";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof IndexImport;
+			parentRoute: typeof rootRoute;
+		};
+		"/_layout": {
+			id: "/_layout";
+			path: "";
+			fullPath: "";
+			preLoaderRoute: typeof LayoutImport;
+			parentRoute: typeof rootRoute;
+		};
+		"/signin/": {
+			id: "/signin/";
+			path: "/signin";
+			fullPath: "/signin";
+			preLoaderRoute: typeof SigninIndexImport;
+			parentRoute: typeof rootRoute;
+		};
+		"/_layout/doctors/chat/": {
+			id: "/_layout/doctors/chat/";
+			path: "/doctors/chat";
+			fullPath: "/doctors/chat";
+			preLoaderRoute: typeof LayoutDoctorsChatIndexImport;
+			parentRoute: typeof LayoutImport;
+		};
+		"/_layout/doctors/home/": {
+			id: "/_layout/doctors/home/";
+			path: "/doctors/home";
+			fullPath: "/doctors/home";
+			preLoaderRoute: typeof LayoutDoctorsHomeIndexImport;
+			parentRoute: typeof LayoutImport;
+		};
+	}
 }
 
 // Create and export the route tree
 
+interface LayoutRouteChildren {
+	LayoutDoctorsChatIndexRoute: typeof LayoutDoctorsChatIndexRoute;
+	LayoutDoctorsHomeIndexRoute: typeof LayoutDoctorsHomeIndexRoute;
+}
+
+const LayoutRouteChildren: LayoutRouteChildren = {
+	LayoutDoctorsChatIndexRoute: LayoutDoctorsChatIndexRoute,
+	LayoutDoctorsHomeIndexRoute: LayoutDoctorsHomeIndexRoute,
+};
+
+const LayoutRouteWithChildren =
+	LayoutRoute._addFileChildren(LayoutRouteChildren);
+
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/signin': typeof SigninIndexRoute
-  '/doctors/home': typeof DoctorsHomeIndexRoute
+	"/": typeof IndexRoute;
+	"": typeof LayoutRouteWithChildren;
+	"/signin": typeof SigninIndexRoute;
+	"/doctors/chat": typeof LayoutDoctorsChatIndexRoute;
+	"/doctors/home": typeof LayoutDoctorsHomeIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/signin': typeof SigninIndexRoute
-  '/doctors/home': typeof DoctorsHomeIndexRoute
+	"/": typeof IndexRoute;
+	"": typeof LayoutRouteWithChildren;
+	"/signin": typeof SigninIndexRoute;
+	"/doctors/chat": typeof LayoutDoctorsChatIndexRoute;
+	"/doctors/home": typeof LayoutDoctorsHomeIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/signin/': typeof SigninIndexRoute
-  '/doctors/home/': typeof DoctorsHomeIndexRoute
+	__root__: typeof rootRoute;
+	"/": typeof IndexRoute;
+	"/_layout": typeof LayoutRouteWithChildren;
+	"/signin/": typeof SigninIndexRoute;
+	"/_layout/doctors/chat/": typeof LayoutDoctorsChatIndexRoute;
+	"/_layout/doctors/home/": typeof LayoutDoctorsHomeIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/signin' | '/doctors/home'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/signin' | '/doctors/home'
-  id: '__root__' | '/' | '/signin/' | '/doctors/home/'
-  fileRoutesById: FileRoutesById
+	fileRoutesByFullPath: FileRoutesByFullPath;
+	fullPaths: "/" | "" | "/signin" | "/doctors/chat" | "/doctors/home";
+	fileRoutesByTo: FileRoutesByTo;
+	to: "/" | "" | "/signin" | "/doctors/chat" | "/doctors/home";
+	id:
+		| "__root__"
+		| "/"
+		| "/_layout"
+		| "/signin/"
+		| "/_layout/doctors/chat/"
+		| "/_layout/doctors/home/";
+	fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  SigninIndexRoute: typeof SigninIndexRoute
-  DoctorsHomeIndexRoute: typeof DoctorsHomeIndexRoute
+	IndexRoute: typeof IndexRoute;
+	LayoutRoute: typeof LayoutRouteWithChildren;
+	SigninIndexRoute: typeof SigninIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  SigninIndexRoute: SigninIndexRoute,
-  DoctorsHomeIndexRoute: DoctorsHomeIndexRoute,
-}
+	IndexRoute: IndexRoute,
+	LayoutRoute: LayoutRouteWithChildren,
+	SigninIndexRoute: SigninIndexRoute,
+};
 
 export const routeTree = rootRoute
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+	._addFileChildren(rootRouteChildren)
+	._addFileTypes<FileRouteTypes>();
 
 /* prettier-ignore-end */
 
@@ -115,18 +166,30 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/signin/",
-        "/doctors/home/"
+        "/_layout",
+        "/signin/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
+    "/_layout": {
+      "filePath": "_layout.tsx",
+      "children": [
+        "/_layout/doctors/chat/",
+        "/_layout/doctors/home/"
+      ]
+    },
     "/signin/": {
       "filePath": "signin/index.tsx"
     },
-    "/doctors/home/": {
-      "filePath": "doctors/home/index.tsx"
+    "/_layout/doctors/chat/": {
+      "filePath": "_layout/doctors/chat/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/doctors/home/": {
+      "filePath": "_layout/doctors/home/index.tsx",
+      "parent": "/_layout"
     }
   }
 }

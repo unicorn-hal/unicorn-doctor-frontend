@@ -14,33 +14,32 @@ export function SignInApp() {
 	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
 
-	const onSubmit = async () => {
+	const handleSubmit = async () => {
 		const user = await signInWithEmailAndPassword(auth, email, password);
-		const token = await user.user.getIdToken();
-		console.log(token);
+		if (!user) return;
 		navigate({ to: "/doctors/home" });
 	};
-	
+
 	return (
 		<>
 			<div>
 				<h1>Sign In</h1>
 				<div>
 					<div>
-						<label>Email</label>
+						<div>Email</div>
 						<Input
 							type="email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 						/>
-						<label>password</label>
+						<div>password</div>
 						<Input
 							type="password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</div>
-					<Button onClick={onSubmit}>Sign In</Button>
+					<Button onClick={handleSubmit}>Sign In</Button>
 				</div>
 			</div>
 		</>
