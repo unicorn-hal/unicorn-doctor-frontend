@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CompatClient, Stomp } from "@stomp/stompjs";
 import { fetchJSON } from "~/util/api.ts";
 import { useMutation } from "@tanstack/react-query";
-import { Message } from "~/components/features/chat/hooks/useGetMessageHistory.ts";
+import { Message } from "~/domain/message/message";
 
 interface UseConnectionMessage {
 	connected: boolean;
@@ -10,7 +10,7 @@ interface UseConnectionMessage {
 	sendMessage: (content: string) => void;
 }
 
-export const useConnectionMessage = (chatID: String): UseConnectionMessage => {
+export const useConnectionMessage = (chatID: string): UseConnectionMessage => {
 	const [client, setClient] = useState<CompatClient | null>(null);
 	const [connected, setConnected] = useState<boolean>(false);
 	const [messages, setMessages] = useState<Message[]>([]);
@@ -18,6 +18,7 @@ export const useConnectionMessage = (chatID: String): UseConnectionMessage => {
 	const socket = new WebSocket(`${import.meta.env.VITE_API_URL}/ws`);
 	const stompClient = Stomp.over(socket);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		stompClient.connect(
 			{},
@@ -29,7 +30,7 @@ export const useConnectionMessage = (chatID: String): UseConnectionMessage => {
 					setMessages((prevState) => [...prevState, messageBody]);
 				});
 			},
-			(error: any) => {
+			(error: Error) => {
 				console.error(error);
 			},
 		);

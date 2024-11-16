@@ -14,6 +14,8 @@ import { Route as rootRoute } from "./routes/__root";
 import { Route as LayoutImport } from "./routes/_layout";
 import { Route as IndexImport } from "./routes/index";
 import { Route as SigninIndexImport } from "./routes/signin/index";
+import { Route as SignupDoctorIndexImport } from "./routes/signup/doctor/index";
+import { Route as SignupAccountIndexImport } from "./routes/signup/account/index";
 import { Route as LayoutDoctorsHomeIndexImport } from "./routes/_layout/doctors/home/index";
 import { Route as LayoutDoctorsChatIndexImport } from "./routes/_layout/doctors/chat/index";
 
@@ -31,6 +33,16 @@ const IndexRoute = IndexImport.update({
 
 const SigninIndexRoute = SigninIndexImport.update({
 	path: "/signin/",
+	getParentRoute: () => rootRoute,
+} as any);
+
+const SignupDoctorIndexRoute = SignupDoctorIndexImport.update({
+	path: "/signup/doctor/",
+	getParentRoute: () => rootRoute,
+} as any);
+
+const SignupAccountIndexRoute = SignupAccountIndexImport.update({
+	path: "/signup/account/",
 	getParentRoute: () => rootRoute,
 } as any);
 
@@ -69,6 +81,20 @@ declare module "@tanstack/react-router" {
 			preLoaderRoute: typeof SigninIndexImport;
 			parentRoute: typeof rootRoute;
 		};
+		"/signup/account/": {
+			id: "/signup/account/";
+			path: "/signup/account";
+			fullPath: "/signup/account";
+			preLoaderRoute: typeof SignupAccountIndexImport;
+			parentRoute: typeof rootRoute;
+		};
+		"/signup/doctor/": {
+			id: "/signup/doctor/";
+			path: "/signup/doctor";
+			fullPath: "/signup/doctor";
+			preLoaderRoute: typeof SignupDoctorIndexImport;
+			parentRoute: typeof rootRoute;
+		};
 		"/_layout/doctors/chat/": {
 			id: "/_layout/doctors/chat/";
 			path: "/doctors/chat";
@@ -105,6 +131,8 @@ export interface FileRoutesByFullPath {
 	"/": typeof IndexRoute;
 	"": typeof LayoutRouteWithChildren;
 	"/signin": typeof SigninIndexRoute;
+	"/signup/account": typeof SignupAccountIndexRoute;
+	"/signup/doctor": typeof SignupDoctorIndexRoute;
 	"/doctors/chat": typeof LayoutDoctorsChatIndexRoute;
 	"/doctors/home": typeof LayoutDoctorsHomeIndexRoute;
 }
@@ -113,6 +141,8 @@ export interface FileRoutesByTo {
 	"/": typeof IndexRoute;
 	"": typeof LayoutRouteWithChildren;
 	"/signin": typeof SigninIndexRoute;
+	"/signup/account": typeof SignupAccountIndexRoute;
+	"/signup/doctor": typeof SignupDoctorIndexRoute;
 	"/doctors/chat": typeof LayoutDoctorsChatIndexRoute;
 	"/doctors/home": typeof LayoutDoctorsHomeIndexRoute;
 }
@@ -122,20 +152,38 @@ export interface FileRoutesById {
 	"/": typeof IndexRoute;
 	"/_layout": typeof LayoutRouteWithChildren;
 	"/signin/": typeof SigninIndexRoute;
+	"/signup/account/": typeof SignupAccountIndexRoute;
+	"/signup/doctor/": typeof SignupDoctorIndexRoute;
 	"/_layout/doctors/chat/": typeof LayoutDoctorsChatIndexRoute;
 	"/_layout/doctors/home/": typeof LayoutDoctorsHomeIndexRoute;
 }
 
 export interface FileRouteTypes {
 	fileRoutesByFullPath: FileRoutesByFullPath;
-	fullPaths: "/" | "" | "/signin" | "/doctors/chat" | "/doctors/home";
+	fullPaths:
+		| "/"
+		| ""
+		| "/signin"
+		| "/signup/account"
+		| "/signup/doctor"
+		| "/doctors/chat"
+		| "/doctors/home";
 	fileRoutesByTo: FileRoutesByTo;
-	to: "/" | "" | "/signin" | "/doctors/chat" | "/doctors/home";
+	to:
+		| "/"
+		| ""
+		| "/signin"
+		| "/signup/account"
+		| "/signup/doctor"
+		| "/doctors/chat"
+		| "/doctors/home";
 	id:
 		| "__root__"
 		| "/"
 		| "/_layout"
 		| "/signin/"
+		| "/signup/account/"
+		| "/signup/doctor/"
 		| "/_layout/doctors/chat/"
 		| "/_layout/doctors/home/";
 	fileRoutesById: FileRoutesById;
@@ -145,12 +193,16 @@ export interface RootRouteChildren {
 	IndexRoute: typeof IndexRoute;
 	LayoutRoute: typeof LayoutRouteWithChildren;
 	SigninIndexRoute: typeof SigninIndexRoute;
+	SignupAccountIndexRoute: typeof SignupAccountIndexRoute;
+	SignupDoctorIndexRoute: typeof SignupDoctorIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
 	IndexRoute: IndexRoute,
 	LayoutRoute: LayoutRouteWithChildren,
 	SigninIndexRoute: SigninIndexRoute,
+	SignupAccountIndexRoute: SignupAccountIndexRoute,
+	SignupDoctorIndexRoute: SignupDoctorIndexRoute,
 };
 
 export const routeTree = rootRoute
@@ -167,7 +219,9 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/_layout",
-        "/signin/"
+        "/signin/",
+        "/signup/account/",
+        "/signup/doctor/"
       ]
     },
     "/": {
@@ -182,6 +236,12 @@ export const routeTree = rootRoute
     },
     "/signin/": {
       "filePath": "signin/index.tsx"
+    },
+    "/signup/account/": {
+      "filePath": "signup/account/index.tsx"
+    },
+    "/signup/doctor/": {
+      "filePath": "signup/doctor/index.tsx"
     },
     "/_layout/doctors/chat/": {
       "filePath": "_layout/doctors/chat/index.tsx",

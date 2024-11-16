@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useConnectionMessage } from "~/components/features/chat/hooks/useConnectionMessage.ts";
-import { useGetMessageHistory } from "~/components/features/chat/hooks/useGetMessageHistory.ts";
 import { Button } from "~/components/ui/button.tsx";
+import { useConnectionMessage } from "~/features/chat/hooks/useConnectionMessage";
+import { useGetMessageHistory } from "~/features/chat/hooks/useGetMessageHistory";
 
 export const Route = createFileRoute("/_layout/doctors/chat/")({
 	component: Chat,

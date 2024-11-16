@@ -12,19 +12,20 @@ export const Route = createFileRoute("/_layout")({
 		if (!context.currentUser) {
 			return redirect({ to: "/signin" });
 		}
+		if (!context.currentDoctor) {
+			return redirect({ to: "/signup/doctor" });
+		}
 	},
 });
 
 function LayoutComponent() {
 	return (
-		<div
-			className={css({
-				display: "flex",
-			})}
-		>
+		<div>
 			<div
 				className={css({
 					width: "100px",
+					display: "flex",
+					gap: "10px",
 				})}
 			>
 				<div

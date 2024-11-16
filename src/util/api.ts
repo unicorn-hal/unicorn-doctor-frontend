@@ -1,4 +1,5 @@
-import { auth } from "src/infrastructure/firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import { auth, storage } from "src/infrastructure/firebase";
 
 export const fetchJSON = async <T>(
 	url: string,
@@ -25,8 +26,18 @@ export const fetchURL = async (
 	return fetch(`${import.meta.env.VITE_API_URL}${url}`, {
 		...init,
 		headers: {
+			"Content-Type": "application/json",
 			"X-UID": auth.currentUser?.uid || "",
 			...init?.headers,
 		},
 	});
 };
+
+export const storageUpload = async (
+	data: File,
+) => {
+	const imageRef = ref(storage, `doctors/${auth.currentUser?.uid}/profile/avatar.png`);
+	await uploadBytes(imageRef, data);
+	const url = await getDownloadURL(imageRef);
+	return url;
+}

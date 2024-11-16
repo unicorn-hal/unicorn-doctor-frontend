@@ -1,16 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { queryKey } from "~/components/features/chat/hooks/queryKey.ts";
+import type { Message } from "~/domain/message/message";
 import { fetchJSON } from "~/util/api.ts";
-
-export type Message = {
-	messageID: string;
-	chatID: string;
-	senderID: string;
-	firstName: string;
-	lastName: string;
-	content: string;
-	sentAt: string;
-};
+import { queryKey } from "./queryKey";
 
 export type MessageResult = {
 	data: Message[];

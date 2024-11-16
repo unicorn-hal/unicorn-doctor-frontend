@@ -14,14 +14,18 @@
 		"indentStyle": "tab",
 		"indentWidth": 2
 	},
-	"organizeImports": {
-		"enabled": true
-	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
-		}
+			"recommended": true,
+			"style": {
+				"useImportType": "off"
+			},
+			"correctness": {
+				"noUnusedImports": "warn"
+			}
+		},
+		"ignore": ["src/routeTree.gen.ts"]
 	},
 	"javascript": {
 		"formatter": {
