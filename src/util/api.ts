@@ -1,4 +1,4 @@
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { auth, storage } from "src/infrastructure/firebase";
 
 export const fetchJSON = async <T>(
@@ -33,11 +33,12 @@ export const fetchURL = async (
 	});
 };
 
-export const storageUpload = async (
-	data: File,
-) => {
-	const imageRef = ref(storage, `doctors/${auth.currentUser?.uid}/profile/avatar.png`);
+export const storageUpload = async (data: File) => {
+	const imageRef = ref(
+		storage,
+		`doctors/${auth.currentUser?.uid}/profile/avatar.png`,
+	);
 	await uploadBytes(imageRef, data);
 	const url = await getDownloadURL(imageRef);
 	return url;
-}
+};

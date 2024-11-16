@@ -5,36 +5,36 @@ import { DoctorForm } from "~/features/doctor/components/DoctorForm/DoctorForm";
 import { css } from "styled-system/css";
 
 export const Route = createFileRoute("/signup/doctor/")({
-    component: DoctorSignup,
-    loader: async ({ context }) => {
-        if (!context.currentUser) {
-            return redirect({ to: "/signin" });
-        }
-        if (context.currentDoctor) {
-            return redirect({ to: "/doctors/home" });
-        }
-    }
+	component: DoctorSignup,
+	loader: async ({ context }) => {
+		if (!context.currentUser) {
+			return redirect({ to: "/signin" });
+		}
+		if (context.currentDoctor) {
+			return redirect({ to: "/doctors/home" });
+		}
+	},
 });
 
 export function DoctorSignup() {
-    const { hospitals, isLoading: isHospitalsLoading } = useGetHospitals();
-    const { departments, isLoading: isDepartmentsLoading } = useGetDepartments();
+	const { hospitals, isLoading: isHospitalsLoading } = useGetHospitals();
+	const { departments, isLoading: isDepartmentsLoading } = useGetDepartments();
 
-    if (isHospitalsLoading || isDepartmentsLoading) {
-        return <div>Loading...</div>;
-    }
+	if (isHospitalsLoading || isDepartmentsLoading) {
+		return <div>Loading...</div>;
+	}
 
-    return (
-        <div>
-            <div
-                className={css({
-                    display: "flex",
-                    justifyContent: "center",
-                    marginY: "40px",
-                })}
-            >
-                <DoctorForm departments={departments} hospitals={hospitals} />
-            </div>
-        </div>
-    );
+	return (
+		<div>
+			<div
+				className={css({
+					display: "flex",
+					justifyContent: "center",
+					marginY: "40px",
+				})}
+			>
+				<DoctorForm departments={departments} hospitals={hospitals} />
+			</div>
+		</div>
+	);
 }
