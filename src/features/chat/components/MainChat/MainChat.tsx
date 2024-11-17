@@ -6,13 +6,14 @@ import { useGetMessageHistory } from "../../hooks/useGetMessageHistory";
 import { MessageCard } from "../MessageCard/MessageCard";
 import { MessageForm } from "../MessageForm/MessageForm";
 import { ChatHeader } from "../ChatHeader/ChatHeader";
+import { ScreenSpinner } from "~/components/common";
 
 type MainChatProps = {
 	selectedChat: Chat;
 };
 
 export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
-	const { messages: messageHistories } = useGetMessageHistory(
+	const { messages: messageHistories, isMessageLoading } = useGetMessageHistory(
 		selectedChat.chatID,
 	);
 
@@ -25,6 +26,7 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
 	};
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(scrollToBottom, [messageHistories, messages]);
 
 	return (
@@ -44,6 +46,7 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 				role="log"
 				aria-live="polite"
 			>
+				{isMessageLoading && <ScreenSpinner />}
 				{[...messageHistories, ...messages]
 					.filter((message) => message.chatID === selectedChat.chatID)
 					.map((message) => (
@@ -56,6 +59,7 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 				<div ref={messagesEndRef} />
 			</div>
 			<MessageForm
+				isMessageLoading={isMessageLoading}
 				input={input}
 				isPending={isPending}
 				onInputMessage={onInputMessage}

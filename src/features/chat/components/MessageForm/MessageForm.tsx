@@ -6,12 +6,14 @@ import { Field } from "~/components/ui/field";
 type MessageFormProps = {
 	input: string;
 	isPending: boolean;
+	isMessageLoading: boolean;
 	onInputMessage: (input: string) => void;
 	onSubmit: () => void;
 };
 export const MessageForm: FC<MessageFormProps> = ({
 	isPending,
 	input,
+	isMessageLoading,
 	onInputMessage,
 	onSubmit,
 }) => {
@@ -49,6 +51,7 @@ export const MessageForm: FC<MessageFormProps> = ({
 						type="text"
 						onChange={handleInputMessage}
 						placeholder="メッセージを入力してください"
+						disabled={isMessageLoading || isPending}
 						onKeyDown={(e) => {
 							if (e.key === "Enter" && e.ctrlKey) {
 								handleSubmit();
@@ -58,6 +61,7 @@ export const MessageForm: FC<MessageFormProps> = ({
 				</Field.Root>
 				<Button
 					loading={isPending}
+					disabled={isMessageLoading}
 					aria-label="送信"
 					size={"lg"}
 					onClick={handleSubmit}
