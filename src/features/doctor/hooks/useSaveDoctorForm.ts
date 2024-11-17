@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { fetchURL } from "~/util/api";
-import { useRouter } from "@tanstack/react-router";
 import { auth } from "~/infrastructure/firebase";
 
 export type DepartmentCollection = {
@@ -25,8 +24,6 @@ export const useSaveDoctorForm = ({
 	departments: Department[];
 	hospitals: Hospital[];
 }) => {
-	const router = useRouter();
-
 	const {
 		register,
 		setValue,
@@ -37,6 +34,7 @@ export const useSaveDoctorForm = ({
 	});
 
 	const [_, setDoctorImage] = useState<File | null>(null);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const MAX_FILE_SIZE = 3 * 1024 * 1024;
 
 	const departmentInitialCollection = createListCollection({
@@ -68,6 +66,7 @@ export const useSaveDoctorForm = ({
 		try {
 			// TODO: CORSエラー解消
 			// const url = await storageUpload(doctorImage)
+			setIsSubmitting(true);
 			const accountBody = {
 				uid: auth.currentUser?.uid || "",
 				role: "doctor",
@@ -90,10 +89,8 @@ export const useSaveDoctorForm = ({
 				body: JSON.stringify(doctorBody),
 			});
 			if (!result.ok) throw new Error("Failed to save doctor");
-
-			router.navigate({ to: "/doctors/home" });
 		} catch (error) {
-			console.error(error);
+			setIsSubmitting(false);
 		}
 	};
 
@@ -101,6 +98,7 @@ export const useSaveDoctorForm = ({
 		departmentInitialCollection,
 		hospitalInitialCollection,
 		errors,
+		isSubmitting,
 		MAX_FILE_SIZE,
 		setDoctorImage,
 		onSelectDepartment,
@@ -137,12 +135,14 @@ export const doctorFormSchema = z
 	})
 	.refine(
 		(data) => {
-			const chatSupportStartHour = Number.parseInt(
-				data.chatSupportStartHour.split(":")[0],
-			);
-			const chatSupportEndHour = Number.parseInt(
-				data.chatSupportEndHour.split(":")[0],
-			);
+			const chatSupportStartHour =
+				Number.parseInt(data.chatSupportStartHour.split(":")[0]) * 60 +
+				Number.parseInt(data.chatSupportStartHour.split(":")[1]);
+
+			const chatSupportEndHour =
+				Number.parseInt(data.chatSupportEndHour.split(":")[0]) * 60 +
+				Number.parseInt(data.chatSupportEndHour.split(":")[1]);
+
 			return chatSupportStartHour < chatSupportEndHour;
 		},
 		{
@@ -152,12 +152,13 @@ export const doctorFormSchema = z
 	)
 	.refine(
 		(data) => {
-			const callSupportStartHour = Number.parseInt(
-				data.callSupportStartHour.split(":")[0],
-			);
-			const callSupportEndHour = Number.parseInt(
-				data.callSupportEndHour.split(":")[0],
-			);
+			const callSupportStartHour =
+				Number.parseInt(data.callSupportStartHour.split(":")[0]) * 60 +
+				Number.parseInt(data.callSupportStartHour.split(":")[1]);
+
+			const callSupportEndHour =
+				Number.parseInt(data.callSupportEndHour.split(":")[0]) * 60 +
+				Number.parseInt(data.callSupportEndHour.split(":")[1]);
 
 			return callSupportStartHour < callSupportEndHour;
 		},

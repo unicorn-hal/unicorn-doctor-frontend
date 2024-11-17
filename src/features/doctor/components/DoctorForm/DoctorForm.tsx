@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { BaseSyntheticEvent, FC, useEffect } from "react";
 import type { Department, Hospital } from "~/domain/doctor/doctor";
 import { DepartmentSelect } from "../DepartmentSelect/DepartmentSelect";
 import { Card } from "~/components/ui/card";
@@ -8,6 +8,8 @@ import { css } from "styled-system/css";
 import { Field } from "~/components/ui/field";
 import { Button } from "~/components/ui/button";
 import { DoctorImageUpload } from "../DoctorImageUpload/DoctorImageUpload";
+import { useNavigate } from "@tanstack/react-router";
+import { useAuth } from "~/components/providers/AuthProvider";
 
 type DoctorFormProps = {
 	departments: Department[];
@@ -15,24 +17,39 @@ type DoctorFormProps = {
 };
 
 export const DoctorForm: FC<DoctorFormProps> = ({ departments, hospitals }) => {
+	const navigate = useNavigate();
 	const {
 		departmentInitialCollection,
 		hospitalInitialCollection,
 		errors,
 		MAX_FILE_SIZE,
+		isSubmitting,
 		onSubmit,
 		setDoctorImage,
 		register,
 		onSelectHospital,
 		onSelectDepartment,
 	} = useSaveDoctorForm({ departments, hospitals });
+	const { setCurrentDoctor, currentDoctor } = useAuth();
+
+	useEffect(() => {
+		if (currentDoctor && isSubmitting) {
+			navigate({ to: "/doctors/home" });
+		}
+	}, [currentDoctor, navigate, isSubmitting]);
+
+	const handleSubmit = async (e: BaseSyntheticEvent) => {
+		e.preventDefault();
+		await onSubmit(e);
+		await setCurrentDoctor();
+	};
 
 	return (
 		<Card.Root w={"500px"}>
 			<Card.Header>
 				<Card.Title>医師情報登録</Card.Title>
 			</Card.Header>
-			<form onSubmit={onSubmit}>
+			<form onSubmit={handleSubmit}>
 				<Card.Body
 					className={css({
 						display: "flex",
@@ -144,7 +161,9 @@ export const DoctorForm: FC<DoctorFormProps> = ({ departments, hospitals }) => {
 						setDoctorImage={setDoctorImage}
 						maxFileSize={MAX_FILE_SIZE}
 					/>
-					<Button type="submit">登録</Button>
+					<Button type="submit" loading={isSubmitting}>
+						登録
+					</Button>
 				</Card.Body>
 			</form>
 		</Card.Root>

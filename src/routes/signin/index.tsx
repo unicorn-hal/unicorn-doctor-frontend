@@ -1,7 +1,11 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { css } from "styled-system/css";
+import { useAuth } from "~/components/providers/AuthProvider";
 import { Button } from "~/components/ui/button";
+import { Card } from "~/components/ui/card";
+import { Field } from "~/components/ui/field";
 import { Input } from "~/components/ui/input";
 import { auth } from "~/infrastructure/firebase";
 
@@ -12,35 +16,81 @@ export const Route = createFileRoute("/signin/")({
 export function SignInApp() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const navigate = useNavigate();
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [invalid, setInvalid] = useState(false);
+	const { setCurrentDoctor, currentUser, currentDoctor } = useAuth();
+	const navigator = useNavigate();
+
+	useEffect(() => {
+		if (currentUser && currentDoctor) {
+			navigator({ to: "/doctors/home" });
+		} else if (currentUser && currentDoctor === null) {
+			navigator({ to: "/signup/doctor" });
+		}
+	}, [currentDoctor, currentUser, navigator]);
 
 	const handleSubmit = async () => {
-		const user = await signInWithEmailAndPassword(auth, email, password);
-		if (!user) return;
-		navigate({ to: "/doctors/home" });
+		try {
+			setIsSubmitting(true);
+			await signInWithEmailAndPassword(auth, email, password);
+			await setCurrentDoctor();
+		} catch (error) {
+			setInvalid(true);
+			console.error(error);
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 
 	return (
 		<>
-			<div>
-				<h1>Sign In</h1>
-				<div>
-					<div>
-						<div>Email</div>
-						<Input
-							type="email"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-						/>
-						<div>password</div>
-						<Input
-							type="password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-						/>
-					</div>
-					<Button onClick={handleSubmit}>Sign In</Button>
-				</div>
+			<div
+				className={css({
+					display: "flex",
+					justifyContent: "center",
+					marginY: "100px",
+				})}
+			>
+				<Card.Root w={"500px"}>
+					<Card.Header>
+						<Card.Title>Sign In</Card.Title>
+					</Card.Header>
+					<Card.Body
+						className={css({
+							display: "flex",
+							flexDirection: "column",
+							gap: "20px",
+						})}
+					>
+						<Field.Root invalid={invalid}>
+							<Field.Label>Email</Field.Label>
+							<Input
+								type="email"
+								value={email}
+								onChange={(e) => {
+									setEmail(e.target.value);
+									setInvalid(false);
+								}}
+							/>
+							<Field.ErrorText>Invalid email or password</Field.ErrorText>
+						</Field.Root>
+						<Field.Root invalid={invalid}>
+							<Field.Label>Password</Field.Label>
+							<Input
+								type="password"
+								value={password}
+								onChange={(e) => {
+									setPassword(e.target.value);
+									setInvalid(false);
+								}}
+							/>
+							<Field.ErrorText>Invalid email or password</Field.ErrorText>
+						</Field.Root>
+						<Button onClick={handleSubmit} loading={isSubmitting}>
+							Sign In
+						</Button>
+					</Card.Body>
+				</Card.Root>
 			</div>
 		</>
 	);

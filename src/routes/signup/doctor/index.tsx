@@ -10,9 +10,6 @@ export const Route = createFileRoute("/signup/doctor/")({
 		if (!context.currentUser) {
 			return redirect({ to: "/signin" });
 		}
-		if (context.currentDoctor) {
-			return redirect({ to: "/doctors/home" });
-		}
 	},
 });
 
