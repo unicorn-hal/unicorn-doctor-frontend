@@ -44,7 +44,8 @@ export const Header = () => {
 		<header
 			className={css({
 				bg: "white",
-				boxShadow: "sm",
+				borderBottom: "1px solid",
+				borderColor: "gray.5",
 			})}
 		>
 			<nav

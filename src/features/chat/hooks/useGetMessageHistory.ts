@@ -14,7 +14,7 @@ type UseGetMessageHistory = {
 
 export const useGetMessageHistory = (chatID: string): UseGetMessageHistory => {
 	const { data, isLoading } = useQuery({
-		queryKey: queryKey.getByChatID(chatID),
+		queryKey: queryKey.getMessageByChatID(chatID),
 		queryFn: async () => {
 			const response = await fetchJSON<MessageResult>(
 				`/chats/${chatID}/messages`,

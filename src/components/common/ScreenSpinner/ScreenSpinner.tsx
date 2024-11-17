@@ -1,12 +1,16 @@
+import { FC } from "react";
 import { css } from "styled-system/css";
 import { Spinner } from "~/components/ui/spinner";
 
-export const FullScreenSpinner = () => {
+type ScreenSpinnerProps = {
+	height?: string;
+};
+export const ScreenSpinner: FC<ScreenSpinnerProps> = ({ height = "100vh" }) => {
 	return (
 		<div
 			className={css({
 				width: "100%",
-				height: "100vh",
+				height: height,
 				position: "relative",
 			})}
 		>
