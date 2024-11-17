@@ -19,5 +19,5 @@
 		"noFallthroughCasesInSwitch": true
 	},
 	"include": ["vite.config.ts"],
-	"exclude": ["node_modules", "dist", "components/ui/**/*.tsx"]
+	"exclude": ["node_modules", "dist", "components/ui/**/*"]
 }

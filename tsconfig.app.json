@@ -25,5 +25,5 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true
 	},
-	"exclude": ["node_modules", "dist", "components/ui/**/*.tsx"]
+	"exclude": ["node_modules", "dist", "components/ui/**/*"]
 }
