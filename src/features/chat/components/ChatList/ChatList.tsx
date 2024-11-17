@@ -4,7 +4,6 @@ import { ScreenSpinner } from "~/components/common";
 import { Avatar } from "~/components/ui/avatar";
 import { Text } from "~/components/ui/text";
 import { Chat } from "~/domain/chat/chat";
-import { MainChatContainer } from "../MainChat/MainChatContainer";
 
 type ChatListProps = {
 	chats: Chat[];
