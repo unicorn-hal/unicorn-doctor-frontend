@@ -7,9 +7,9 @@ import React, {
 } from "react";
 import { User } from "firebase/auth";
 import { auth } from "../../infrastructure/firebase"; // あなたのFirebase設定ファイルへのパスに調整してください
-import { Spinner } from "../ui/spinner";
 import { Doctor } from "~/domain/doctor/doctor";
 import { fetchURL } from "~/util/api";
+import { FullScreenSpinner } from "../common/FullScreenSpinner/FullScreenSpinner";
 
 export interface AuthContextType {
 	currentUser: User | null;
@@ -83,7 +83,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				setCurrentDoctor: setCurrentDoctorCallback,
 			}}
 		>
-			{loading ? <Spinner /> : children}
+			{loading ? <FullScreenSpinner /> : children}
 		</AuthContext.Provider>
 	);
 }

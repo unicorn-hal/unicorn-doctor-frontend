@@ -1,10 +1,5 @@
-import {
-	Outlet,
-	createFileRoute,
-	Link,
-	redirect,
-} from "@tanstack/react-router";
-import { css } from "../../styled-system/css";
+import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
+import { Header } from "~/components/common";
 
 export const Route = createFileRoute("/_layout")({
 	component: LayoutComponent,
@@ -20,32 +15,11 @@ export const Route = createFileRoute("/_layout")({
 
 function LayoutComponent() {
 	return (
-		<div>
-			<div
-				className={css({
-					width: "100px",
-					display: "flex",
-					gap: "10px",
-				})}
-			>
-				<div
-					className={css({
-						marginBottom: "10px",
-					})}
-				>
-					<Link to="/doctors/home">Home</Link>
-				</div>
-				<div
-					className={css({
-						marginBottom: "10px",
-					})}
-				>
-					<Link to="/doctors/chat">Chat</Link>
-				</div>
-			</div>
+		<>
+			<Header />
 			<div>
 				<Outlet />
 			</div>
-		</div>
+		</>
 	);
 }

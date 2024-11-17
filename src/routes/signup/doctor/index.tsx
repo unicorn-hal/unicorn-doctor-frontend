@@ -3,6 +3,7 @@ import { useGetDepartments } from "~/hooks/department/useGetDepartments";
 import { useGetHospitals } from "~/hooks/hospital/useGetHospitals";
 import { DoctorForm } from "~/features/doctor/components/DoctorForm/DoctorForm";
 import { css } from "styled-system/css";
+import { FullScreenSpinner } from "~/components/common";
 
 export const Route = createFileRoute("/signup/doctor/")({
 	component: DoctorSignup,
@@ -18,7 +19,7 @@ export function DoctorSignup() {
 	const { departments, isLoading: isDepartmentsLoading } = useGetDepartments();
 
 	if (isHospitalsLoading || isDepartmentsLoading) {
-		return <div>Loading...</div>;
+		return <FullScreenSpinner />;
 	}
 
 	return (

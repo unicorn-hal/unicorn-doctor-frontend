@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { css } from "styled-system/css";
@@ -73,7 +73,9 @@ export function SignInApp() {
 									setInvalid(false);
 								}}
 							/>
-							<Field.ErrorText>パスワードもしくはメールアドレスが間違っています</Field.ErrorText>
+							<Field.ErrorText>
+								パスワードもしくはメールアドレスが間違っています
+							</Field.ErrorText>
 						</Field.Root>
 						<Field.Root invalid={invalid}>
 							<Field.Label>パスワード</Field.Label>
@@ -86,12 +88,17 @@ export function SignInApp() {
 									setInvalid(false);
 								}}
 							/>
-							<Field.ErrorText>パスワードもしくはメールアドレスが間違っています</Field.ErrorText>
+							<Field.ErrorText>
+								パスワードもしくはメールアドレスが間違っています
+							</Field.ErrorText>
 						</Field.Root>
 						<Button onClick={handleSubmit} loading={isSubmitting}>
 							サインイン
 						</Button>
 					</Card.Body>
+					<Card.Footer>
+						<Link to="/signup/account">アカウントをお持ちでない方はこちら</Link>
+					</Card.Footer>
 				</Card.Root>
 			</div>
 		</>

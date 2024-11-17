@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
@@ -26,10 +26,14 @@ function SighUp() {
 		try {
 			if (password !== confirmPassword) {
 				setConfirmPasswordInvalid(true);
-				return
+				return;
 			}
 			setIsSubmitting(true);
-			const result = await createUserWithEmailAndPassword(auth, email, password);
+			const result = await createUserWithEmailAndPassword(
+				auth,
+				email,
+				password,
+			);
 			console.log(result);
 			navigator({ to: "/signin" });
 		} catch (error) {
@@ -44,7 +48,7 @@ function SighUp() {
 			}
 			setIsSubmitting(false);
 		}
-	}
+	};
 	return (
 		<div
 			className={css({
@@ -64,48 +68,45 @@ function SighUp() {
 						gap: "20px",
 					})}
 				>
-					<Field.Root
-						invalid={invalidEmail}
-					>
+					<Field.Root invalid={invalidEmail}>
 						<Field.Label>Email</Field.Label>
-						<Field.Input type="email"
+						<Field.Input
+							type="email"
 							value={email}
 							placeholder="メールアドレスを入力してください"
 							onChange={(e) => {
-								setEmail(e.target.value)
+								setEmail(e.target.value);
 								setInvalidEmail(false);
 							}}
 						/>
-						<Field.ErrorText>
-							無効なメールアドレスです
-						</Field.ErrorText>
+						<Field.ErrorText>無効なメールアドレスです</Field.ErrorText>
 					</Field.Root>
-					<Field.Root
-						invalid={confirmPasswordInvalid || invalidPassword}
-					>
+					<Field.Root invalid={confirmPasswordInvalid || invalidPassword}>
 						<Field.Label>パスワード (6文字以上の半角英数字)</Field.Label>
-						<Field.Input type="password"
+						<Field.Input
+							type="password"
 							value={password}
 							placeholder="パスワードを入力してください"
 							onChange={(e) => {
-								setPassword(e.target.value)
+								setPassword(e.target.value);
 								setInvalidPassword(false);
 							}}
 						/>
 						<Field.ErrorText>
-							{confirmPasswordInvalid ? "パスワードが一致しません" : "パスワードが不正です"}
+							{confirmPasswordInvalid
+								? "パスワードが一致しません"
+								: "パスワードが不正です"}
 						</Field.ErrorText>
 					</Field.Root>
-					<Field.Root
-						invalid={confirmPasswordInvalid}
-					>
+					<Field.Root invalid={confirmPasswordInvalid}>
 						<Field.Label>パスワードを再入力してください</Field.Label>
-						<Field.Input type="password"
+						<Field.Input
+							type="password"
 							value={confirmPassword}
 							placeholder="パスワードを再入力してください"
 							onChange={(e) => {
-								setConfirmPassword(e.target.value)
-								setConfirmPasswordInvalid(false)
+								setConfirmPassword(e.target.value);
+								setConfirmPasswordInvalid(false);
 							}}
 						/>
 						<Field.ErrorText>パスワードが一致しません</Field.ErrorText>
@@ -114,8 +115,10 @@ function SighUp() {
 						サインアップ
 					</Button>
 				</Card.Body>
-
+				<Card.Footer>
+					<Link to="/signin">アカウントをお持ちの方はこちら</Link>
+				</Card.Footer>
 			</Card.Root>
-		</div >
+		</div>
 	);
 }

@@ -12,6 +12,7 @@ const router = createRouter({
 	routeTree,
 	// biome-ignore lint/style/noNonNullAssertion: <explanation>
 	context: undefined!,
+	basepath: "/",
 });
 
 const queryClient = new QueryClient();
