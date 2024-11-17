@@ -18,7 +18,7 @@ import { auth } from "~/infrastructure/firebase";
 export const Header = () => {
 	const router = useRouter();
 	const navigate = useNavigate();
-	const { currentUser } = useAuth();
+	const { currentUser, currentDoctor } = useAuth();
 	const [currentPath, setCurrentPath] = useState(
 		router.state.location.pathname,
 	);
@@ -141,6 +141,7 @@ export const Header = () => {
 									ml: { sm: 6 },
 									alignItems: "center",
 									cursor: "pointer",
+									outline: "none",
 								})}
 							>
 								<Avatar />
@@ -149,7 +150,9 @@ export const Header = () => {
 						<Menu.Positioner>
 							<Menu.Content>
 								<Menu.ItemGroup>
-									<Menu.ItemGroupLabel>アカウント情報</Menu.ItemGroupLabel>
+									<Menu.ItemGroupLabel>
+										{currentDoctor?.email}
+									</Menu.ItemGroupLabel>
 									<Menu.Separator />
 									<Menu.Item value="profile">
 										<HStack gap="6" justify="space-between" flex="1">
