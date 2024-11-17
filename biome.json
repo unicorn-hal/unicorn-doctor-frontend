@@ -20,12 +20,8 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
-			"style": {
-				"useImportType": "off"
-			}
-		},
-		"ignore": ["src/routeTree.gen.ts", "src/components/ui/**/*"]
+			"recommended": true
+		}
 	},
 	"javascript": {
 		"formatter": {
