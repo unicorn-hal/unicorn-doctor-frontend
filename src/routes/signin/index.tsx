@@ -53,7 +53,7 @@ export function SignInApp() {
 			>
 				<Card.Root w={"500px"}>
 					<Card.Header>
-						<Card.Title>Sign In</Card.Title>
+						<Card.Title>サインイン</Card.Title>
 					</Card.Header>
 					<Card.Body
 						className={css({
@@ -66,28 +66,30 @@ export function SignInApp() {
 							<Field.Label>Email</Field.Label>
 							<Input
 								type="email"
+								placeholder="メールアドレスを入力してください"
 								value={email}
 								onChange={(e) => {
 									setEmail(e.target.value);
 									setInvalid(false);
 								}}
 							/>
-							<Field.ErrorText>Invalid email or password</Field.ErrorText>
+							<Field.ErrorText>パスワードもしくはメールアドレスが間違っています</Field.ErrorText>
 						</Field.Root>
 						<Field.Root invalid={invalid}>
-							<Field.Label>Password</Field.Label>
+							<Field.Label>パスワード</Field.Label>
 							<Input
 								type="password"
+								placeholder="パスワードを入力してください"
 								value={password}
 								onChange={(e) => {
 									setPassword(e.target.value);
 									setInvalid(false);
 								}}
 							/>
-							<Field.ErrorText>Invalid email or password</Field.ErrorText>
+							<Field.ErrorText>パスワードもしくはメールアドレスが間違っています</Field.ErrorText>
 						</Field.Root>
 						<Button onClick={handleSubmit} loading={isSubmitting}>
-							Sign In
+							サインイン
 						</Button>
 					</Card.Body>
 				</Card.Root>

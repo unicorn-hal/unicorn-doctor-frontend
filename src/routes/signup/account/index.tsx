@@ -70,6 +70,7 @@ function SighUp() {
 						<Field.Label>Email</Field.Label>
 						<Field.Input type="email"
 							value={email}
+							placeholder="メールアドレスを入力してください"
 							onChange={(e) => {
 								setEmail(e.target.value)
 								setInvalidEmail(false);
@@ -85,6 +86,7 @@ function SighUp() {
 						<Field.Label>パスワード (6文字以上の半角英数字)</Field.Label>
 						<Field.Input type="password"
 							value={password}
+							placeholder="パスワードを入力してください"
 							onChange={(e) => {
 								setPassword(e.target.value)
 								setInvalidPassword(false);
@@ -100,6 +102,7 @@ function SighUp() {
 						<Field.Label>パスワードを再入力してください</Field.Label>
 						<Field.Input type="password"
 							value={confirmPassword}
+							placeholder="パスワードを再入力してください"
 							onChange={(e) => {
 								setConfirmPassword(e.target.value)
 								setConfirmPasswordInvalid(false)
