@@ -62,11 +62,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		const unsubscribe = auth.onAuthStateChanged(async (user) => {
 			setCurrentUser(user);
 			if (user) {
-				const result = await fetchURL(`/doctors/${user.uid}`);
-				if (result.ok) {
-					const data: Doctor = await result.json();
-					setCurrentDoctor(data);
+				try {
+					const result = await fetchURL(`/doctors/${user.uid}`);
+					if (result.ok) {
+						const data: Doctor = await result.json();
+						setCurrentDoctor(data);
+					} else if (result.status === 404) {
+						setCurrentDoctor(null);
+					} else {
+						throw new Error("Failed to fetch doctor");
+					}
+				} catch (error) {
+					console.error(error);
+					setCurrentDoctor(null);
 				}
+			} else {
+				setCurrentDoctor(undefined);
 			}
 			setLoading(false);
 		});
