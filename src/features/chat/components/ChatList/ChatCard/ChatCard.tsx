@@ -41,7 +41,10 @@ export const ChatCard: FC<ChatCardProps> = ({
 					alignItems: "center",
 				})}
 			>
-				<Avatar name={`${chat.user.lastName} ${chat.user.firstName}`} />
+				<Avatar
+					src={chat.user.userIconUrl || undefined}
+					name={`${chat.user.lastName} ${chat.user.firstName}`}
+				/>
 				<div
 					className={css({
 						marginLeft: "0.75rem",
