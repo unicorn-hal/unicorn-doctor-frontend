@@ -4,7 +4,7 @@ import { Department, Hospital } from "~/domain/doctor/doctor";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { fetchURL } from "~/util/api";
+import { fetchURL, storageUpload } from "~/util/api";
 import { auth } from "~/infrastructure/firebase";
 
 export type DepartmentCollection = {
@@ -33,7 +33,7 @@ export const useSaveDoctorForm = ({
 		resolver: zodResolver(doctorFormSchema),
 	});
 
-	const [_, setDoctorImage] = useState<File | null>(null);
+	const [doctorImage, setDoctorImage] = useState<File | null>(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const MAX_FILE_SIZE = 3 * 1024 * 1024;
 
@@ -64,9 +64,9 @@ export const useSaveDoctorForm = ({
 
 	const onSubmit = async (data: DoctorForm) => {
 		try {
-			// TODO: CORSエラー解消
-			// const url = await storageUpload(doctorImage)
 			setIsSubmitting(true);
+			const url = doctorImage ? await storageUpload(doctorImage) : null;
+
 			const accountBody = {
 				uid: auth.currentUser?.uid || "",
 				role: "doctor",
@@ -74,6 +74,7 @@ export const useSaveDoctorForm = ({
 			};
 			const doctorBody = {
 				...data,
+				doctorIconUrl: url || undefined,
 				email: auth.currentUser?.email || "",
 			};
 

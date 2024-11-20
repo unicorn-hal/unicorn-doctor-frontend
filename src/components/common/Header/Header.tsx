@@ -145,7 +145,7 @@ export const Header = () => {
 									outline: "none",
 								})}
 							>
-								<Avatar />
+								<Avatar src={currentDoctor?.doctorIconUrl} />
 							</button>
 						</Menu.Trigger>
 						<Menu.Positioner>
