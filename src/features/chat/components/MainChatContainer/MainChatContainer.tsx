@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { css } from "styled-system/css";
 import { Chat } from "~/domain/chat/chat";
-import { MainChat } from "./MainChat";
+import { MainChat } from "./MainChat/MainChat";
 
 type MainChatContainerProps = {
 	selectedChat: Chat | null;

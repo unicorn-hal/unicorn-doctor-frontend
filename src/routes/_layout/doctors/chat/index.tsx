@@ -3,7 +3,7 @@ import { useState } from "react";
 import { css } from "styled-system/css";
 import { type Chat } from "~/domain/chat/chat";
 import { ChatList } from "~/features/chat/components/ChatList/ChatList";
-import { MainChatContainer } from "~/features/chat/components/MainChat/MainChatContainer";
+import { MainChatContainer } from "~/features/chat/components/MainChatContainer/MainChatContainer";
 import { useGetChatList } from "~/features/chat/hooks/useGetChatList";
 
 export const Route = createFileRoute("/_layout/doctors/chat/")({

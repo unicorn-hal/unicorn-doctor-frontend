@@ -1,11 +1,11 @@
 import { FC, useEffect, useRef } from "react";
 import { css } from "styled-system/css";
 import { Chat } from "~/domain/chat/chat";
-import { useConnectionMessage } from "../../hooks/useConnectionMessage";
-import { useGetMessageHistory } from "../../hooks/useGetMessageHistory";
+import { useConnectionMessage } from "../../../hooks/useConnectionMessage";
+import { useGetMessageHistory } from "../../../hooks/useGetMessageHistory";
 import { MessageCard } from "../MessageCard/MessageCard";
 import { MessageForm } from "../MessageForm/MessageForm";
-import { ChatHeader } from "../ChatHeader/ChatHeader";
+import { ChatHeader } from "../../ChatList/ChatHeader/ChatHeader";
 import { ScreenSpinner } from "~/components/common";
 
 type MainChatProps = {
