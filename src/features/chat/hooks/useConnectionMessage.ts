@@ -39,7 +39,13 @@ export const useConnectionMessage = (chatID: string): UseConnectionMessage => {
 				`/topic/chats/${chatID}/messages`,
 				(message: IMessage) => {
 					const messageBody: Message = JSON.parse(message.body);
-					setMessages((prevState) => [...prevState, messageBody]);
+					setMessages((prevState) => {
+						const isExistMessage = prevState.some(
+							(message) => message.messageID === messageBody.messageID,
+						);
+						if (isExistMessage) return prevState;
+						return [...prevState, messageBody];
+					});
 				},
 			);
 		};
