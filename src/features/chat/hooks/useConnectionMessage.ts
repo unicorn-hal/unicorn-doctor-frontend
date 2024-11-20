@@ -20,7 +20,6 @@ export const useConnectionMessage = (chatID: string): UseConnectionMessage => {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [input, setInput] = useState("");
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const stompClient = new Client({
 			brokerURL: `${import.meta.env.VITE_API_URL}/ws`,
@@ -28,7 +27,7 @@ export const useConnectionMessage = (chatID: string): UseConnectionMessage => {
 			connectHeaders: {
 				// 'Authorization': 'Bearer your_token_here',
 			},
-			debug: function (str) {
+			debug: (str) => {
 				console.log(str);
 			},
 		});
@@ -46,8 +45,8 @@ export const useConnectionMessage = (chatID: string): UseConnectionMessage => {
 		};
 
 		stompClient.onStompError = (frame) => {
-			console.error("Broker reported error: " + frame.headers["message"]);
-			console.error("Additional details: " + frame.body);
+			console.error(`Broker reported error: ${frame.headers.message}`);
+			console.error(`Additional details: ${frame.body}`);
 		};
 
 		stompClient.activate();

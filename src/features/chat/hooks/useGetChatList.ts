@@ -18,7 +18,7 @@ export const useGetChatList = (): UserGetChatList => {
 	const { data, isLoading } = useQuery({
 		queryKey: queryKey.getChatByDoctorID(currentDoctor?.doctorID || ""),
 		queryFn: async () => {
-			const response = await fetchJSON<ChatResult>(`/chats`);
+			const response = await fetchJSON<ChatResult>("/chats");
 			return response.data;
 		},
 	});

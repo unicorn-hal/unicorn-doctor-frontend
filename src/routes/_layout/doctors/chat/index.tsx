@@ -7,10 +7,10 @@ import { MainChatContainer } from "~/features/chat/components/MainChat/MainChatC
 import { useGetChatList } from "~/features/chat/hooks/useGetChatList";
 
 export const Route = createFileRoute("/_layout/doctors/chat/")({
-	component: Chat,
+	component: ChatPage,
 });
 
-function Chat() {
+function ChatPage() {
 	const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
 	const { chats, isChatLoading } = useGetChatList();
 

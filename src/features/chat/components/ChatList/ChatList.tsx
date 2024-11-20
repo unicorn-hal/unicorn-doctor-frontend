@@ -60,9 +60,7 @@ export const ChatList: FC<ChatListProps> = ({
 							borderColor: "gray.5",
 							cursor: "pointer",
 							backgroundColor:
-								selectedChat?.chatID === chat.chatID
-									? "blue.50"
-									: "transparent",
+								selectedChat?.chatID === chat.chatID ? "gray.3" : "transparent",
 							_hover: {
 								backgroundColor: "gray.3",
 							},
