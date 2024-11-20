@@ -49,6 +49,10 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 				{isMessageLoading && <ScreenSpinner />}
 				{[...messageHistories, ...messages]
 					.filter((message) => message.chatID === selectedChat.chatID)
+					.filter(
+						(message, index, self) =>
+							self.findIndex((m) => m.messageID === message.messageID) === index,
+					)
 					.map((message) => (
 						<MessageCard
 							key={message.messageID}
