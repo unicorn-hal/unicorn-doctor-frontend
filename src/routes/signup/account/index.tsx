@@ -29,12 +29,7 @@ function SighUp() {
 				return;
 			}
 			setIsSubmitting(true);
-			const result = await createUserWithEmailAndPassword(
-				auth,
-				email,
-				password,
-			);
-			console.log(result);
+			await createUserWithEmailAndPassword(auth, email, password);
 			navigator({ to: "/signin" });
 		} catch (error) {
 			if (error instanceof FirebaseError) {

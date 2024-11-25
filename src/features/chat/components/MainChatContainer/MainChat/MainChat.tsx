@@ -51,7 +51,8 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 					.filter((message) => message.chatID === selectedChat.chatID)
 					.filter(
 						(message, index, self) =>
-							self.findIndex((m) => m.messageID === message.messageID) === index,
+							self.findIndex((m) => m.messageID === message.messageID) ===
+							index,
 					)
 					.map((message) => (
 						<MessageCard

@@ -27,9 +27,6 @@ export const useConnectionMessage = (chatID: string): UseConnectionMessage => {
 			connectHeaders: {
 				// 'Authorization': 'Bearer your_token_here',
 			},
-			debug: (str) => {
-				console.log(str);
-			},
 		});
 
 		stompClient.onConnect = () => {

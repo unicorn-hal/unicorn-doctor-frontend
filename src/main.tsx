@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import "./index.css";
-
+import AgoraRTC, { AgoraRTCProvider } from "agora-rtc-react";
 import { routeTree } from "./routeTree.gen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider, useAuth } from "./components/providers/AuthProvider";
@@ -27,6 +27,7 @@ function InnerApp() {
 	const user = useAuth();
 	return <RouterProvider router={router} context={user} />;
 }
+const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
 
 // Render the app
 // biome-ignore lint/style/noNonNullAssertion: <explanation>
@@ -37,7 +38,9 @@ if (!rootElement.innerHTML) {
 		<StrictMode>
 			<AuthProvider>
 				<QueryClientProvider client={queryClient}>
-					<InnerApp />
+					<AgoraRTCProvider client={client}>
+						<InnerApp />
+					</AgoraRTCProvider>
 				</QueryClientProvider>
 			</AuthProvider>
 		</StrictMode>,
