@@ -25,6 +25,7 @@ function Call() {
 		remoteUsers,
 		isSolo,
 		isCallFinished,
+		remoteUserName,
 		startCall,
 		endCall,
 		toggleMic,
@@ -45,6 +46,7 @@ function Call() {
 					isSolo={isSolo}
 					remoteUsers={remoteUsers}
 					doctorName={`${currentDoctor?.lastName} ${currentDoctor?.firstName}`}
+					remoteUserName={remoteUserName}
 					endCall={endCall}
 					toggleMic={toggleMic}
 					toggleCamera={toggleCamera}

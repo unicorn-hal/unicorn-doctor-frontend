@@ -10,6 +10,7 @@ import {
 import { useNavigate } from "@tanstack/react-router";
 import { useSetDoctorCallState } from "./useSetDoctorCallState";
 import { useGetCallReservation } from "./useGetCallReservation";
+import { useGetUser } from "~/hooks/user/useGetUser";
 
 interface UseVideoCallParams {
 	uid: number;
@@ -18,12 +19,15 @@ interface UseVideoCallParams {
 }
 
 const useVideoCall = ({ uid, channelId, token }: UseVideoCallParams) => {
+	const navigation = useNavigate();
+
 	const [calling, setCalling] = useState(false);
 	const [micOn, setMic] = useState(true);
 	const [cameraOn, setCamera] = useState(true);
 	const [isCallFinished, setIsCallFinished] = useState(false);
-	const navigation = useNavigate();
+
 	const { callReservation } = useGetCallReservation(channelId);
+	const { user } = useGetUser(callReservation?.userID || "");
 	const { onDoctorEntered, onDoctorLeft, doctorEntered } =
 		useSetDoctorCallState({
 			channelId,
@@ -106,6 +110,7 @@ const useVideoCall = ({ uid, channelId, token }: UseVideoCallParams) => {
 		isConnected,
 		remoteUsers,
 		isCallFinished,
+		remoteUserName: `${user?.lastName} ${user?.firstName}`,
 		startCall,
 		endCall,
 		toggleMic,

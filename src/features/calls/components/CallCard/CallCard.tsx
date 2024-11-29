@@ -19,6 +19,7 @@ type CallCardProps = {
 	localMicrophoneTrack: IMicrophoneAudioTrack | null;
 	localCameraTrack: ICameraVideoTrack | null;
 	doctorName: string;
+	remoteUserName: string;
 	toggleMic: () => void;
 	toggleCamera: () => void;
 	endCall: () => Promise<void>;
@@ -32,6 +33,7 @@ export const CallCard: FC<CallCardProps> = ({
 	localMicrophoneTrack,
 	localCameraTrack,
 	doctorName,
+	remoteUserName,
 	toggleMic,
 	toggleCamera,
 	endCall,
@@ -186,7 +188,7 @@ export const CallCard: FC<CallCardProps> = ({
 									alignItems: "center",
 								})}
 							>
-								{user.uid}
+								{remoteUserName}
 							</samp>
 						</div>
 					))}
