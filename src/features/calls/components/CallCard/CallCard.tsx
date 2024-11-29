@@ -151,15 +151,11 @@ export const CallCard: FC<CallCardProps> = ({
 								display: "flex",
 								alignItems: "center",
 								justifyContent: "center",
+								objectFit: "contain",
 							})}
 						>
 							<RemoteUser
 								user={user}
-								className={css({
-									maxW: "100%",
-									maxH: "100%",
-									objectFit: "contain"
-								})}
 							/>
 							<samp
 								className={css({
