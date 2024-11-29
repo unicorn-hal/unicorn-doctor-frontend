@@ -21,7 +21,7 @@ type CallCardProps = {
 	doctorName: string;
 	toggleMic: () => void;
 	toggleCamera: () => void;
-	endCall: () => void;
+	endCall: () => Promise<void>;
 };
 
 export const CallCard: FC<CallCardProps> = ({
@@ -236,12 +236,7 @@ export const CallCard: FC<CallCardProps> = ({
 							color: "white",
 							"&:hover": { bg: "red.8" },
 						})}
-						onClick={() => {
-							endCall();
-							// navigation({
-							//     to: "/doctors/home"
-							// })
-						}}
+						onClick={async () => await endCall()}
 						aria-label="通話を終了する"
 						size={"2xl"}
 					>

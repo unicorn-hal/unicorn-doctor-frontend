@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { usePublish } from "agora-rtc-react";
 import { ScreenSpinner } from "~/components/common";
 import { useAuth } from "~/components/providers/AuthProvider";
 import { CallCard } from "~/features/calls/components/CallCard/CallCard";
@@ -28,6 +29,8 @@ function Call() {
 		toggleMic,
 		toggleCamera,
 	} = useVideoCall({ uid, channelId, token });
+
+	usePublish([localMicrophoneTrack, localCameraTrack]);
 
 	return (
 		<>

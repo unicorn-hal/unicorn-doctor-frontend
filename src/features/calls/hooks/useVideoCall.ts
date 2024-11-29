@@ -4,8 +4,8 @@ import {
 	useJoin,
 	useLocalMicrophoneTrack,
 	useLocalCameraTrack,
-	usePublish,
 	useRemoteUsers,
+	useRTCClient,
 } from "agora-rtc-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useSetDoctorCallState } from "./useSetDoctorCallState";
@@ -23,17 +23,23 @@ const useVideoCall = ({ uid, channelId, token }: UseVideoCallParams) => {
 	const [cameraOn, setCamera] = useState(true);
 	const navigation = useNavigate();
 	const { callReservation } = useGetCallReservation(channelId);
-	const { onDoctorEntered, onDoctorLeft } = useSetDoctorCallState({
-		channelId,
-		userID: callReservation?.userID || "",
-		startDate: new Date(callReservation?.callStartTime || new Date()),
-		endDate: new Date(callReservation?.callEndTime || new Date()),
-	});
+	const { onDoctorEntered, onDoctorLeft, doctorEntered } =
+		useSetDoctorCallState({
+			channelId,
+			userID: callReservation?.userID || "",
+			startDate: new Date(callReservation?.callStartTime || new Date()),
+			endDate: new Date(callReservation?.callEndTime || new Date()),
+		});
 
 	const isConnected = useIsConnected();
 	const { localMicrophoneTrack } = useLocalMicrophoneTrack(micOn);
 	const { localCameraTrack } = useLocalCameraTrack(cameraOn);
 	const remoteUsers = useRemoteUsers();
+	const client = useRTCClient();
+
+	if (remoteUsers.length > 0 && doctorEntered) {
+		onDoctorLeft();
+	}
 
 	useJoin(
 		{
@@ -44,19 +50,34 @@ const useVideoCall = ({ uid, channelId, token }: UseVideoCallParams) => {
 		},
 		calling,
 	);
-	usePublish([localMicrophoneTrack, localCameraTrack]);
 
-	const toggleMic = () => setMic((prev) => !prev);
-	const toggleCamera = () => setCamera((prev) => !prev);
+	const toggleMic = () => {
+		setMic((prev) => {
+			localMicrophoneTrack?.setEnabled(!prev);
+			return !prev;
+		});
+	};
+
+	const toggleCamera = () =>
+		setCamera((prev) => {
+			localCameraTrack?.setEnabled(!prev);
+			return !prev;
+		});
+
 	const startCall = async () => {
 		await onDoctorEntered();
 		setCalling(true);
 	};
+
 	const endCall = async () => {
+		await client.leave();
+		setMic(false);
+		setCamera(false);
 		setCalling(false);
-		localMicrophoneTrack?.stop();
 		localCameraTrack?.stop();
-		await onDoctorLeft();
+		localCameraTrack?.close();
+		localMicrophoneTrack?.stop();
+		localMicrophoneTrack?.close();
 		navigation({
 			to: `/doctors/calls/${channelId}/end`,
 		});

@@ -155,7 +155,10 @@ export const Header = () => {
 										{currentDoctor?.email}
 									</Menu.ItemGroupLabel>
 									<Menu.Separator />
-									<Menu.Item value="profile">
+									<Menu.Item
+										value="profile"
+										onClick={() => handleLinkClick("/doctors/profile")}
+									>
 										<HStack gap="6" justify="space-between" flex="1">
 											<HStack gap="2">
 												<UserIcon />

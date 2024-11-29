@@ -4,7 +4,7 @@ export type Doctor = {
 	firstName: string;
 	lastName: string;
 	doctorIconUrl?: string;
-	departments: Department;
+	departments: Department[];
 	email: string;
 	phoneNumber: string;
 	chatSupportHours: string;

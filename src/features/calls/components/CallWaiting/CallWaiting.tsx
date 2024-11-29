@@ -27,22 +27,35 @@ export const CallWaiting: FC<CallWaitingProps> = ({
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const streamRef = useRef<MediaStream | null>(null);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
+		let isMounted = true;
+
 		const initializeStream = async () => {
 			try {
 				const stream = await navigator.mediaDevices.getUserMedia({
 					video: true,
-					audio: micOn,
+					audio: true,
 				});
-				if (videoRef.current) {
-					videoRef.current.srcObject = stream;
+
+				if (isMounted) {
+					if (videoRef.current) {
+						videoRef.current.srcObject = stream;
+					}
+					streamRef.current = stream;
+					stream.getAudioTracks().map((track) => {
+						track.enabled = micOn;
+					});
+				} else {
+					stream.getTracks().map((track) => track.stop());
 				}
-				streamRef.current = stream;
 			} catch (err) {
-				console.error("Error accessing media devices.", err);
-				setError(
-					"カメラへのアクセスができません。デバイスの設定を確認してください。",
-				);
+				if (isMounted) {
+					console.error("Error accessing media devices.", err);
+					setError(
+						"カメラへのアクセスができません。デバイスの設定を確認してください。",
+					);
+				}
 			}
 		};
 
@@ -50,22 +63,33 @@ export const CallWaiting: FC<CallWaitingProps> = ({
 			initializeStream();
 		} else {
 			if (streamRef.current) {
-				for (const track of streamRef.current.getTracks()) {
-					track.stop();
-				}
+				streamRef.current.getTracks().map((track) => track.stop());
 				streamRef.current = null;
+				if (videoRef.current) {
+					videoRef.current.srcObject = null;
+				}
 			}
 		}
 
 		return () => {
+			isMounted = false;
 			if (streamRef.current) {
-				for (const track of streamRef.current.getTracks()) {
-					track.stop();
-				}
+				streamRef.current.getTracks().map((track) => track.stop());
 				streamRef.current = null;
 			}
+			if (videoRef.current) {
+				videoRef.current.srcObject = null;
+			}
 		};
-	}, [cameraOn, micOn]);
+	}, [cameraOn]);
+
+	useEffect(() => {
+		if (streamRef.current) {
+			streamRef.current.getAudioTracks().map((track) => {
+				track.enabled = micOn;
+			});
+		}
+	}, [micOn]);
 
 	return (
 		<div

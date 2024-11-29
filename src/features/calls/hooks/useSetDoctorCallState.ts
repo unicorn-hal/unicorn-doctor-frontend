@@ -1,27 +1,29 @@
 import { doc, setDoc } from "firebase/firestore";
+import { useState } from "react";
 import { db } from "~/infrastructure/firebase";
 
 type UseSetDoctorCallState = {
 	onDoctorEntered: () => Promise<void>;
 	onDoctorLeft: () => Promise<void>;
+	doctorEntered: boolean;
 };
 
 export const useSetDoctorCallState = ({
 	channelId,
 	userID,
-	startDate,
 }: {
 	channelId: string;
 	userID: string;
 	startDate: Date;
 	endDate: Date;
 }): UseSetDoctorCallState => {
+	const [doctorEntered, setDoctorEntered] = useState(false);
 	const onDoctorEntered = async () => {
+		setDoctorEntered(true);
 		await setDoc(
 			doc(db, userID, channelId),
 			{
 				is_doctor_entered: true,
-				is_finished_call: false,
 			},
 			{
 				merge: true,
@@ -30,24 +32,11 @@ export const useSetDoctorCallState = ({
 	};
 
 	const onDoctorLeft = async () => {
-		if (new Date() < startDate) {
-			return await setDoc(
-				doc(db, userID, channelId),
-				{
-					is_doctor_entered: false,
-					is_finished_call: false,
-				},
-				{
-					merge: true,
-				},
-			);
-		}
-
+		setDoctorEntered(false);
 		await setDoc(
 			doc(db, userID, channelId),
 			{
 				is_doctor_entered: false,
-				is_finished_call: true,
 			},
 			{
 				merge: true,
@@ -58,5 +47,6 @@ export const useSetDoctorCallState = ({
 	return {
 		onDoctorEntered,
 		onDoctorLeft,
+		doctorEntered,
 	};
 };

@@ -10,6 +10,7 @@ export const Route = createFileRoute("/_layout/doctors/calls/$channelId/end/")({
 function CallEndPage() {
 	const { channelId } = Route.useParams();
 	const navigate = useNavigate();
+
 	return (
 		<div
 			className={css({
