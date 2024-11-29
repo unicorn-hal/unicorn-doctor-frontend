@@ -78,6 +78,7 @@ const useVideoCall = ({ uid, channelId, token }: UseVideoCallParams) => {
 		localCameraTrack?.close();
 		localMicrophoneTrack?.stop();
 		localMicrophoneTrack?.close();
+		onDoctorLeft();
 		navigation({
 			to: `/doctors/calls/${channelId}/end`,
 		});
