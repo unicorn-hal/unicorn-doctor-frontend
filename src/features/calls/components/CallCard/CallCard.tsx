@@ -147,44 +147,34 @@ export const CallCard: FC<CallCardProps> = ({
 								position: "relative",
 								flex: "1 1 50%",
 								maxWidth: "100%",
+								backgroundColor: "black",
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
 							})}
 						>
 							<RemoteUser
-								cover={() => (
-									<div
-										className={css({
-											display: "flex",
-											alignItems: "center",
-											justifyContent: "center",
-											width: "100%",
-											height: "100%",
-											bg: "gray.4",
-										})}
-									>
-										<VideoOff
-											className={css({ color: "gray.12" })}
-											size={48}
-											aria-hidden="true"
-										/>
-									</div>
-								)}
 								user={user}
+								className={css({
+									maxW: "100%",
+									maxH: "100%",
+									objectFit: "contain"
+								})}
+							/>
+							<samp
+								className={css({
+									bg: "gray.4",
+									position: "absolute",
+									borderRadius: "md",
+									padding: "1",
+									bottom: "2",
+									left: "2",
+									display: "flex",
+									alignItems: "center",
+								})}
 							>
-								<samp
-									className={css({
-										bg: "gray.4",
-										position: "absolute",
-										borderRadius: "md",
-										padding: "1",
-										bottom: "2",
-										left: "2",
-										display: "flex",
-										alignItems: "center",
-									})}
-								>
-									{user.uid}
-								</samp>
-							</RemoteUser>
+								{user.uid}
+							</samp>
 						</div>
 					))}
 				</Card.Body>
