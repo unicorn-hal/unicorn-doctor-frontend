@@ -109,6 +109,7 @@ export const ProfileCard: FC<ProfileCardProps> = ({ doctor }) => {
 									display: "flex",
 									gap: "2",
 									alignItems: "center",
+									flexWrap: "wrap",
 								})}
 							>
 								{doctor.departments.map((department) => (
