@@ -24,6 +24,7 @@ function Call() {
 		isConnected,
 		remoteUsers,
 		isSolo,
+		isCallFinished,
 		startCall,
 		endCall,
 		toggleMic,
@@ -34,7 +35,7 @@ function Call() {
 
 	return (
 		<>
-			{isLoading && <ScreenSpinner height={"90vh"} />}
+			{(isLoading || isCallFinished) && <ScreenSpinner height={"90vh"} />}
 			{isConnected ? (
 				<CallCard
 					localCameraTrack={localCameraTrack}
@@ -49,7 +50,7 @@ function Call() {
 					toggleCamera={toggleCamera}
 				/>
 			) : (
-				<CallWaiting
+				!isCallFinished && <CallWaiting
 					doctorName={`${currentDoctor?.lastName} ${currentDoctor?.firstName}`}
 					micOn={micOn}
 					cameraOn={cameraOn}

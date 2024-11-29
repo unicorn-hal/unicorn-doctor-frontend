@@ -21,6 +21,7 @@ const useVideoCall = ({ uid, channelId, token }: UseVideoCallParams) => {
 	const [calling, setCalling] = useState(false);
 	const [micOn, setMic] = useState(true);
 	const [cameraOn, setCamera] = useState(true);
+	const [isCallFinished, setIsCallFinished] = useState(false);
 	const navigation = useNavigate();
 	const { callReservation } = useGetCallReservation(channelId);
 	const { onDoctorEntered, onDoctorLeft, doctorEntered } =
@@ -70,11 +71,12 @@ const useVideoCall = ({ uid, channelId, token }: UseVideoCallParams) => {
 	};
 
 	const endCall = async () => {
+		setIsCallFinished(true);
+		await client.leave();
+		await onDoctorLeft();
 		setCalling(false);
 		setMic(false);
 		setCamera(false);
-		await client.leave();
-		await onDoctorLeft();
 		localCameraTrack?.stop();
 		localCameraTrack?.close();
 		localMicrophoneTrack?.stop();
@@ -103,6 +105,7 @@ const useVideoCall = ({ uid, channelId, token }: UseVideoCallParams) => {
 		isSolo,
 		isConnected,
 		remoteUsers,
+		isCallFinished,
 		startCall,
 		endCall,
 		toggleMic,
