@@ -147,6 +147,7 @@ export const CallCard: FC<CallCardProps> = ({
 								position: "relative",
 								flex: "1 1 50%",
 								maxWidth: "100%",
+								maxHeight: "100%",
 								backgroundColor: "black",
 								display: "flex",
 								alignItems: "center",
@@ -154,9 +155,7 @@ export const CallCard: FC<CallCardProps> = ({
 								objectFit: "contain",
 							})}
 						>
-							<RemoteUser
-								user={user}
-							/>
+							<RemoteUser user={user} />
 							<samp
 								className={css({
 									bg: "gray.4",
