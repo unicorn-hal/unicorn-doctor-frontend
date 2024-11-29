@@ -70,11 +70,11 @@ const useVideoCall = ({ uid, channelId, token }: UseVideoCallParams) => {
 	};
 
 	const endCall = async () => {
-		await client.leave();
-		await onDoctorLeft();
+		setCalling(false);
 		setMic(false);
 		setCamera(false);
-		setCalling(false);
+		await client.leave();
+		await onDoctorLeft();
 		localCameraTrack?.stop();
 		localCameraTrack?.close();
 		localMicrophoneTrack?.stop();
