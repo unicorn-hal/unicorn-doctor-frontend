@@ -155,7 +155,25 @@ export const CallCard: FC<CallCardProps> = ({
 								objectFit: "contain",
 							})}
 						>
-							<RemoteUser user={user} />
+							<div
+								className={css({
+									aspectRatio: "9/16",
+									height: "100%",
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+									overflow: "hidden",
+								})}
+							>
+								<RemoteUser
+									user={user}
+									className={css({
+										objectFit: "contain",
+										width: "100%",
+										height: "100%",
+									})}
+								/>
+							</div>
 							<samp
 								className={css({
 									bg: "gray.4",
