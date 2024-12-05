@@ -25,7 +25,13 @@ export const DepartmentSelect: FC<DepartmentSelectProps> = ({
 				collection={collection}
 				multiple
 				closeOnSelect={false}
-				defaultValue={defaultValues ? defaultValues.filter((value): value is string => value !== undefined) : undefined}
+				defaultValue={
+					defaultValues
+						? defaultValues.filter(
+								(value): value is string => value !== undefined,
+							)
+						: undefined
+				}
 				onValueChange={(e) => {
 					handleSelectDepartment(e.items);
 				}}

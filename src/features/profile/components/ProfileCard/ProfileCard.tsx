@@ -8,7 +8,7 @@ import {
 	Phone,
 	Stethoscope,
 } from "lucide-react";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { css } from "styled-system/css";
 import { Box } from "styled-system/jsx";
 import { Card } from "~/components/ui/card";
@@ -26,7 +26,7 @@ type ProfileCardProps = {
 export const ProfileCard: FC<ProfileCardProps> = ({ doctor, onEdit }) => {
 	const handleEdit = () => {
 		onEdit();
-	}
+	};
 	return (
 		<Card.Root
 			className={css({
@@ -34,11 +34,13 @@ export const ProfileCard: FC<ProfileCardProps> = ({ doctor, onEdit }) => {
 				position: "relative",
 			})}
 		>
-			<Box className={css({
-				position: "absolute",
-				top: "30px",
-				right: "30px",
-			})}>
+			<Box
+				className={css({
+					position: "absolute",
+					top: "30px",
+					right: "30px",
+				})}
+			>
 				<IconButton variant="ghost" size={"lg"} onClick={handleEdit}>
 					<Pencil size={48} />
 				</IconButton>

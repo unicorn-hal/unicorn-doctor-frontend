@@ -57,6 +57,6 @@ export const HospitalSelect: FC<DepartmentSelectProps> = ({
 					</Select.Content>
 				</Select.Positioner>
 			</Select.Root>
-		</div >
+		</div>
 	);
 };

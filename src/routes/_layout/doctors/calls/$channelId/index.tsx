@@ -52,14 +52,16 @@ function Call() {
 					toggleCamera={toggleCamera}
 				/>
 			) : (
-				!isCallFinished && <CallWaiting
-					doctorName={`${currentDoctor?.lastName} ${currentDoctor?.firstName}`}
-					micOn={micOn}
-					cameraOn={cameraOn}
-					toggleMic={toggleMic}
-					toggleCamera={toggleCamera}
-					startCall={startCall}
-				/>
+				!isCallFinished && (
+					<CallWaiting
+						doctorName={`${currentDoctor?.lastName} ${currentDoctor?.firstName}`}
+						micOn={micOn}
+						cameraOn={cameraOn}
+						toggleMic={toggleMic}
+						toggleCamera={toggleCamera}
+						startCall={startCall}
+					/>
+				)
 			)}
 		</>
 	);

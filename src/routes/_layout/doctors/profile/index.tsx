@@ -18,17 +18,17 @@ function Profile() {
 
 	const onEdit = () => {
 		setIsEdit(true);
-	}
+	};
 
 	const onCancel = () => {
 		setIsEdit(false);
-	}
+	};
 
 	const toaster = Toast.createToaster({
-		placement: 'bottom-end',
+		placement: "bottom-end",
 		overlap: true,
 		gap: 16,
-	})
+	});
 
 	return (
 		<Box
@@ -38,8 +38,16 @@ function Profile() {
 				justifyContent: "center",
 			})}
 		>
-			{(currentDoctor && !isEdit) && <ProfileCard doctor={currentDoctor} onEdit={onEdit} />}
-			{(currentDoctor && isEdit) && <ProfileEditCard doctor={currentDoctor} onCancel={onCancel} toaster={toaster} />}
+			{currentDoctor && !isEdit && (
+				<ProfileCard doctor={currentDoctor} onEdit={onEdit} />
+			)}
+			{currentDoctor && isEdit && (
+				<ProfileEditCard
+					doctor={currentDoctor}
+					onCancel={onCancel}
+					toaster={toaster}
+				/>
+			)}
 			<Toast.Toaster toaster={toaster}>
 				{(toast) => (
 					<Toast.Root key={toast.id}>
