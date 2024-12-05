@@ -7,10 +7,12 @@ import { DepartmentCollection } from "../../hooks/useSaveDoctorForm";
 
 type DepartmentSelectProps = {
 	collection: ListCollection<DepartmentCollection>;
+	defaultValues?: (string | undefined)[];
 	onSelectDepartment: (department: DepartmentCollection[]) => void;
 };
 export const DepartmentSelect: FC<DepartmentSelectProps> = ({
 	collection,
+	defaultValues,
 	onSelectDepartment,
 }) => {
 	const handleSelectDepartment = (item: DepartmentCollection[]) => {
@@ -23,6 +25,7 @@ export const DepartmentSelect: FC<DepartmentSelectProps> = ({
 				collection={collection}
 				multiple
 				closeOnSelect={false}
+				defaultValue={defaultValues ? defaultValues.filter((value): value is string => value !== undefined) : undefined}
 				onValueChange={(e) => {
 					handleSelectDepartment(e.items);
 				}}

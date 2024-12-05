@@ -7,10 +7,12 @@ import { HospitalCollection } from "../../hooks/useSaveDoctorForm";
 
 type DepartmentSelectProps = {
 	collection: ListCollection<HospitalCollection>;
+	defaultValue?: string;
 	onSelectHospital: (department: HospitalCollection) => void;
 };
 export const HospitalSelect: FC<DepartmentSelectProps> = ({
 	collection,
+	defaultValue,
 	onSelectHospital,
 }) => {
 	const handleSelectHospital = (item: HospitalCollection) => {
@@ -25,6 +27,7 @@ export const HospitalSelect: FC<DepartmentSelectProps> = ({
 				onValueChange={(e) => {
 					handleSelectHospital(e.items[0]);
 				}}
+				defaultValue={defaultValue ? [defaultValue] : undefined}
 			>
 				<Select.Label>所属病院</Select.Label>
 				<Select.Control>
@@ -54,6 +57,6 @@ export const HospitalSelect: FC<DepartmentSelectProps> = ({
 					</Select.Content>
 				</Select.Positioner>
 			</Select.Root>
-		</div>
+		</div >
 	);
 };

@@ -14,7 +14,9 @@ export const EventContent = (
 	props: EventContentArg & { userID: string; currentView: string },
 ) => {
 	const { event, userID, currentView } = props;
-	const eventTime = `${event.start?.getHours()}:${event.start?.getMinutes()}~`;
+	const eventTime = `${String(event.start?.getHours()).padStart(2, "0")}:${String(
+		event.start?.getMinutes(),
+	).padStart(2, "0")}~`;
 	const eventDateTime =
 		event.start && event.end && formatDateTimeRange(event.start, event.end);
 	const navigate = useNavigate();

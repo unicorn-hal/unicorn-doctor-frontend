@@ -4,10 +4,11 @@ import {
 	Hospital,
 	Mail,
 	MessageCircle,
+	Pencil,
 	Phone,
 	Stethoscope,
 } from "lucide-react";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { css } from "styled-system/css";
 import { Box } from "styled-system/jsx";
 import { Card } from "~/components/ui/card";
@@ -15,18 +16,33 @@ import { Text } from "~/components/ui/text";
 import { Doctor } from "~/domain/doctor/doctor";
 import { ProfileInfo } from "../ProfileInfo/ProfileInfo";
 import { Badge } from "~/components/ui/badge";
+import { IconButton } from "~/components/ui/icon-button";
 
 type ProfileCardProps = {
 	doctor: Doctor;
+	onEdit: () => void;
 };
 
-export const ProfileCard: FC<ProfileCardProps> = ({ doctor }) => {
+export const ProfileCard: FC<ProfileCardProps> = ({ doctor, onEdit }) => {
+	const handleEdit = () => {
+		onEdit();
+	}
 	return (
 		<Card.Root
 			className={css({
 				w: "800px",
+				position: "relative",
 			})}
 		>
+			<Box className={css({
+				position: "absolute",
+				top: "30px",
+				right: "30px",
+			})}>
+				<IconButton variant="ghost" size={"lg"} onClick={handleEdit}>
+					<Pencil size={48} />
+				</IconButton>
+			</Box>
 			<Card.Body>
 				<Box
 					className={css({
