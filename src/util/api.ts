@@ -57,7 +57,7 @@ export const fetchRtcToken = async <T>(
 	return response.json();
 };
 
-export const notification = async <T>(
+export const notification = async (
 	url: string,
 	init?: RequestInit,
 ): Promise<Response> => {
