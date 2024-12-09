@@ -146,7 +146,6 @@ export const DoctorForm: FC<DoctorFormProps> = ({ departments, hospitals }) => {
 						>
 							<Field.Label>電話対応: 開始時間</Field.Label>
 							<TimeSelector
-
 								onChange={(time) => setValue("callSupportStartHour", time)}
 							/>
 							<Field.ErrorText>

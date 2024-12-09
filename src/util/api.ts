@@ -57,6 +57,20 @@ export const fetchRtcToken = async <T>(
 	return response.json();
 };
 
+export const notification = async <T>(
+	url: string,
+	init?: RequestInit,
+): Promise<Response> => {
+	const token = await auth.currentUser?.getIdToken();
+	return await fetch(`${import.meta.env.VITE_NOTIFICATION_API_URL}${url}`, {
+		...init,
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
+		},
+	});
+};
+
 export const storageUpload = async (data: File) => {
 	const imageRef = ref(
 		storage,

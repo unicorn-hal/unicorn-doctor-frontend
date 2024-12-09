@@ -5,7 +5,7 @@ import { useAuth } from "~/components/providers/AuthProvider";
 import { CallCard } from "~/features/calls/components/CallCard/CallCard";
 import { CallWaiting } from "~/features/calls/components/CallWaiting/CallWaiting";
 import { useGetRtcToken } from "~/features/calls/hooks/useGetRtcToken";
-import useVideoCall from "~/features/calls/hooks/useVideoCall";
+import { useVideoCall } from "~/features/calls/hooks/useVideoCall";
 
 export const Route = createFileRoute("/_layout/doctors/calls/$channelId/")({
 	component: Call,
@@ -30,7 +30,7 @@ function Call() {
 		endCall,
 		toggleMic,
 		toggleCamera,
-	} = useVideoCall({ uid, channelId, token });
+	} = useVideoCall({ uid, channelId, token, currentDoctor });
 
 	usePublish([localMicrophoneTrack, localCameraTrack]);
 

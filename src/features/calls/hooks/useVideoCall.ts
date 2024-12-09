@@ -11,23 +11,33 @@ import { useNavigate } from "@tanstack/react-router";
 import { useSetDoctorCallState } from "./useSetDoctorCallState";
 import { useGetCallReservation } from "./useGetCallReservation";
 import { useGetUser } from "~/hooks/user/useGetUser";
+import { useGetAccount } from "~/hooks/account/useGetAccount";
+import { notification } from "~/util/api";
+import { Doctor } from "~/domain/doctor/doctor";
 
 interface UseVideoCallParams {
 	uid: number;
 	channelId: string;
 	token: string;
+	currentDoctor: Doctor | null | undefined;
 }
 
-const useVideoCall = ({ uid, channelId, token }: UseVideoCallParams) => {
+export const useVideoCall = ({
+	uid,
+	channelId,
+	token,
+	currentDoctor,
+}: UseVideoCallParams) => {
 	const navigation = useNavigate();
 
 	const [calling, setCalling] = useState(false);
 	const [micOn, setMic] = useState(true);
 	const [cameraOn, setCamera] = useState(true);
 	const [isCallFinished, setIsCallFinished] = useState(false);
-
 	const { callReservation } = useGetCallReservation(channelId);
 	const { user } = useGetUser(callReservation?.userID || "");
+	const { account } = useGetAccount(callReservation?.userID || "");
+
 	const { onDoctorEntered, onDoctorLeft, doctorEntered } =
 		useSetDoctorCallState({
 			channelId,
@@ -71,6 +81,18 @@ const useVideoCall = ({ uid, channelId, token }: UseVideoCallParams) => {
 
 	const startCall = async () => {
 		await onDoctorEntered();
+		const result = await notification("/send", {
+			method: "POST",
+			body: JSON.stringify({
+				title: "通話開始",
+				body: `${currentDoctor?.lastName} ${currentDoctor?.firstName} さんから通話がありました`,
+				token: account?.fcmTokenId,
+			}),
+		});
+
+		if (result.status !== 200) {
+			console.error("Failed to send notification");
+		}
 		setCalling(true);
 	};
 

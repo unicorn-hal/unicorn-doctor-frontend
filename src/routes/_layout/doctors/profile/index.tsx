@@ -14,10 +14,10 @@ export const Route = createFileRoute("/_layout/doctors/profile/")({
 });
 
 const toaster = Toast.createToaster({
-	placement: 'bottom-end',
+	placement: "bottom-end",
 	overlap: true,
 	gap: 16,
-})
+});
 
 function Profile() {
 	const { currentDoctor } = useAuth();

@@ -9,10 +9,13 @@ type UseGetUser = {
 	user: User | null;
 };
 
-export const useGetUser = (userID: string): UseGetUser => {
+export const useGetUser = (userID: string | undefined): UseGetUser => {
 	const { data, isLoading, isError } = useQuery({
-		queryKey: queryKey.getByUserID(userID),
+		queryKey: queryKey.getByUserID(userID || ""),
 		queryFn: async () => {
+			if (!userID) {
+				return null;
+			}
 			return await fetchJSON<User>(`/users/${userID}`);
 		},
 	});
