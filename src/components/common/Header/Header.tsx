@@ -6,6 +6,7 @@ import {
 	MessageCircle,
 	SettingsIcon,
 	UserIcon,
+	UsersRound,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { css } from "styled-system/css";
@@ -130,6 +131,30 @@ export const Header = () => {
 							>
 								<MessageCircle className={css({ w: 5, h: 5, mr: 1 })} />
 								<span>チャット</span>
+							</button>
+							<button
+								type="button"
+								className={css({
+									display: "inline-flex",
+									alignItems: "center",
+									cursor: "pointer",
+									px: 1,
+									pt: 1,
+									color: isActive("/patients/primary") ? "primary" : "gray.600",
+									borderBottom: isActive("/doctors/patients/primary")
+										? "2px solid"
+										: "none",
+									borderColor: isActive("/doctors/patients/primary")
+										? "primary"
+										: "none",
+									_hover: {
+										color: "primary",
+									},
+								})}
+								onClick={() => handleLinkClick("/doctors/patients/primary")}
+							>
+								<UsersRound className={css({ w: 5, h: 5, mr: 1 })} />
+								<span>患者情報</span>
 							</button>
 						</div>
 					</div>

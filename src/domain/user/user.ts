@@ -3,7 +3,7 @@ export type User = {
 	firstName: string;
 	lastName: string;
 	email: string;
-	gender: string;
+	gender: Gender;
 	birthDate: string;
 	address: string;
 	postalCode: string;
@@ -12,4 +12,17 @@ export type User = {
 	bodyHeight: number;
 	bodyWeight: number;
 	occupation: string;
+};
+
+type Gender = "male" | "female" | "other";
+
+export const convertGender = (gender: Gender): string => {
+	switch (gender) {
+		case "male":
+			return "男性";
+		case "female":
+			return "女性";
+		case "other":
+			return "その他";
+	}
 };
