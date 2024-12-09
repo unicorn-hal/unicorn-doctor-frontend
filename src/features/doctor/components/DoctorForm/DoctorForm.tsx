@@ -10,6 +10,7 @@ import { Button } from "~/components/ui/button";
 import { DoctorImageUpload } from "../DoctorImageUpload/DoctorImageUpload";
 import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "~/components/providers/AuthProvider";
+import { TimeSelector } from "~/components/common/TimeSelector/TimeSelector";
 
 type DoctorFormProps = {
 	departments: Department[];
@@ -24,6 +25,7 @@ export const DoctorForm: FC<DoctorFormProps> = ({ departments, hospitals }) => {
 		errors,
 		MAX_FILE_SIZE,
 		isSubmitting,
+		setValue,
 		onSubmit,
 		setDoctorImage,
 		register,
@@ -108,7 +110,9 @@ export const DoctorForm: FC<DoctorFormProps> = ({ departments, hospitals }) => {
 							})}
 						>
 							<Field.Label>チャット対応: 開始時間</Field.Label>
-							<Field.Input type="time" {...register("chatSupportStartHour")} />
+							<TimeSelector
+								onChange={(time) => setValue("chatSupportStartHour", time)}
+							/>
 							<Field.ErrorText>
 								{errors.chatSupportStartHour?.message}
 							</Field.ErrorText>
@@ -120,7 +124,9 @@ export const DoctorForm: FC<DoctorFormProps> = ({ departments, hospitals }) => {
 							})}
 						>
 							<Field.Label>チャット対応: 終了時間</Field.Label>
-							<Field.Input type="time" {...register("chatSupportEndHour")} />
+							<TimeSelector
+								onChange={(time) => setValue("chatSupportEndHour", time)}
+							/>
 							<Field.ErrorText>
 								{errors.chatSupportEndHour?.message}
 							</Field.ErrorText>
@@ -139,7 +145,10 @@ export const DoctorForm: FC<DoctorFormProps> = ({ departments, hospitals }) => {
 							})}
 						>
 							<Field.Label>電話対応: 開始時間</Field.Label>
-							<Field.Input type="time" {...register("callSupportStartHour")} />
+							<TimeSelector
+
+								onChange={(time) => setValue("callSupportStartHour", time)}
+							/>
 							<Field.ErrorText>
 								{errors.callSupportStartHour?.message}
 							</Field.ErrorText>
@@ -151,7 +160,9 @@ export const DoctorForm: FC<DoctorFormProps> = ({ departments, hospitals }) => {
 							})}
 						>
 							<Field.Label>電話対応: 終了時間</Field.Label>
-							<Field.Input type="time" {...register("callSupportEndHour")} />
+							<TimeSelector
+								onChange={(time) => setValue("callSupportEndHour", time)}
+							/>
 							<Field.ErrorText>
 								{errors.callSupportEndHour?.message}
 							</Field.ErrorText>

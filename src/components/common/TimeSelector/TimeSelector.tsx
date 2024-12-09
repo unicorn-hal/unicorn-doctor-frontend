@@ -6,7 +6,7 @@ import { Select } from "~/components/ui/select";
 import { generateTimeOptions } from "~/util/util";
 
 type TimeSelectorProps = {
-	time: string | undefined;
+	time?: string | undefined;
 	onChange: (time: string) => void;
 };
 const timeOptions = generateTimeOptions();
@@ -28,7 +28,7 @@ export const TimeSelector: FC<TimeSelectorProps> = ({ time, onChange }) => {
 		>
 			<Select.Control>
 				<Select.Trigger>
-					<Select.ValueText placeholder={time || "時間を選択してください"} />
+					<Select.ValueText placeholder={time || "選択してください"} />
 					<ChevronsUpDownIcon />
 				</Select.Trigger>
 			</Select.Control>

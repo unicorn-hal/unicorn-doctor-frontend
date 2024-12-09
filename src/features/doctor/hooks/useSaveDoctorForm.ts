@@ -101,6 +101,7 @@ export const useSaveDoctorForm = ({
 		errors,
 		isSubmitting,
 		MAX_FILE_SIZE,
+		setValue,
 		setDoctorImage,
 		onSelectDepartment,
 		onSelectHospital,
