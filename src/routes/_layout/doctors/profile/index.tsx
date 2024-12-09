@@ -3,6 +3,7 @@ import { XIcon } from "lucide-react";
 import { useState } from "react";
 import { css } from "styled-system/css";
 import { Box } from "styled-system/jsx";
+import { useAuth } from "~/components/providers/AuthProvider";
 import { IconButton } from "~/components/ui/icon-button";
 import { Toast } from "~/components/ui/toast";
 import { ProfileCard } from "~/features/profile/components/ProfileCard/ProfileCard";
@@ -12,8 +13,14 @@ export const Route = createFileRoute("/_layout/doctors/profile/")({
 	component: Profile,
 });
 
+const toaster = Toast.createToaster({
+	placement: "bottom-end",
+	overlap: true,
+	gap: 16,
+});
+
 function Profile() {
-	const { currentDoctor } = Route.useRouteContext();
+	const { currentDoctor } = useAuth();
 	const [isEdit, setIsEdit] = useState(false);
 
 	const onEdit = () => {
@@ -24,30 +31,26 @@ function Profile() {
 		setIsEdit(false);
 	};
 
-	const toaster = Toast.createToaster({
-		placement: "bottom-end",
-		overlap: true,
-		gap: 16,
-	});
-
 	return (
-		<Box
-			className={css({
-				my: "20",
-				display: "flex",
-				justifyContent: "center",
-			})}
-		>
-			{currentDoctor && !isEdit && (
-				<ProfileCard doctor={currentDoctor} onEdit={onEdit} />
-			)}
-			{currentDoctor && isEdit && (
-				<ProfileEditCard
-					doctor={currentDoctor}
-					onCancel={onCancel}
-					toaster={toaster}
-				/>
-			)}
+		<>
+			<Box
+				className={css({
+					my: "20",
+					display: "flex",
+					justifyContent: "center",
+				})}
+			>
+				{currentDoctor && !isEdit && (
+					<ProfileCard doctor={currentDoctor} onEdit={onEdit} />
+				)}
+				{currentDoctor && isEdit && (
+					<ProfileEditCard
+						doctor={currentDoctor}
+						onCancel={onCancel}
+						toaster={toaster}
+					/>
+				)}
+			</Box>
 			<Toast.Toaster toaster={toaster}>
 				{(toast) => (
 					<Toast.Root key={toast.id}>
@@ -61,6 +64,6 @@ function Profile() {
 					</Toast.Root>
 				)}
 			</Toast.Toaster>
-		</Box>
+		</>
 	);
 }

@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { fetchURL, storageUpload } from "~/util/api";
 import { auth } from "~/infrastructure/firebase";
+import { useAuth } from "~/components/providers/AuthProvider";
 
 export type DepartmentCollection = {
 	label: string;
@@ -52,6 +53,7 @@ export const useUpdateDoctorForm = ({
 
 	const [doctorImage, setDoctorImage] = useState<File | null>(null);
 	const [isImageEdit, setIsImageEdit] = useState(false);
+	const { setCurrentDoctor } = useAuth();
 	const MAX_FILE_SIZE = 3 * 1024 * 1024;
 
 	const departmentInitialCollection = createListCollection({
@@ -81,14 +83,14 @@ export const useUpdateDoctorForm = ({
 
 	const onSubmit = async (data: DoctorForm) => {
 		try {
-			const url = isImageEdit
-				? doctorImage
+			const updatedDoctorIconUrl =
+				isImageEdit && doctorImage
 					? await storageUpload(doctorImage)
-					: ""
-				: null;
+					: currentDoctor.doctorIconUrl;
+
 			const doctorBody = {
 				...data,
-				doctorIconUrl: url || undefined,
+				doctorIconUrl: updatedDoctorIconUrl,
 				email: auth.currentUser?.email || "",
 			};
 
@@ -97,6 +99,8 @@ export const useUpdateDoctorForm = ({
 				body: JSON.stringify(doctorBody),
 			});
 
+			await setCurrentDoctor();
+
 			if (!result.ok) {
 				return toaster.create({
 					type: "error",
@@ -104,6 +108,7 @@ export const useUpdateDoctorForm = ({
 					description: "エラーが発生しました",
 				});
 			}
+
 			return toaster.create({
 				type: "success",
 				title: "成功",

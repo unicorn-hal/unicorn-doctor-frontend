@@ -4,7 +4,6 @@ import { BaseSyntheticEvent, FC } from "react";
 import { css } from "styled-system/css";
 import { Box } from "styled-system/jsx";
 import { TimeSelector } from "~/components/common/TimeSelector/TimeSelector";
-import { useAuth } from "~/components/providers/AuthProvider";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { Field } from "~/components/ui/field";
@@ -28,7 +27,6 @@ export const ProfileEditCard: FC<ProfileEditCardProps> = ({
 	toaster,
 	onCancel,
 }) => {
-	const { setCurrentDoctor } = useAuth();
 	const { departments } = useGetDepartments();
 	const { hospitals } = useGetHospitals();
 	const {
@@ -56,7 +54,7 @@ export const ProfileEditCard: FC<ProfileEditCardProps> = ({
 	const handleSubmit = async (e: BaseSyntheticEvent) => {
 		e.preventDefault();
 		await onSubmit(e);
-		await setCurrentDoctor();
+		setIsImageEdit(false);
 	};
 
 	return (

@@ -24,9 +24,6 @@ type ProfileCardProps = {
 };
 
 export const ProfileCard: FC<ProfileCardProps> = ({ doctor, onEdit }) => {
-	const handleEdit = () => {
-		onEdit();
-	};
 	return (
 		<Card.Root
 			className={css({
@@ -41,7 +38,7 @@ export const ProfileCard: FC<ProfileCardProps> = ({ doctor, onEdit }) => {
 					right: "30px",
 				})}
 			>
-				<IconButton variant="ghost" size={"lg"} onClick={handleEdit}>
+				<IconButton variant="ghost" size={"lg"} onClick={onEdit}>
 					<Pencil size={48} />
 				</IconButton>
 			</Box>
