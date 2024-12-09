@@ -1,3 +1,4 @@
+import { useNavigate } from "@tanstack/react-router";
 import { FC } from "react";
 import { css } from "styled-system/css";
 import { Box } from "styled-system/jsx";
@@ -9,6 +10,10 @@ type PatientListProps = {
 };
 
 export const PatientList: FC<PatientListProps> = ({ patients }) => {
+	const navigate = useNavigate();
+	const handleClick = (patient: User) => {
+		navigate({ to: `/doctors/patients/${patient.userID}` });
+	};
 	return (
 		<Table.Root variant={"outline"}>
 			<Table.Head>
@@ -29,7 +34,7 @@ export const PatientList: FC<PatientListProps> = ({ patients }) => {
 					</Table.Row>
 				)}
 				{patients.map((patient) => (
-					<Table.Row key={patient.userID}>
+					<Table.Row key={patient.userID} onClick={() => handleClick(patient)}>
 						<Table.Cell>
 							{patient.lastName} {patient.firstName}
 						</Table.Cell>
