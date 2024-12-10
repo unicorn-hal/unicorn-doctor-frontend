@@ -15,6 +15,7 @@ import { useAuth } from "~/components/providers/AuthProvider";
 import { Avatar } from "~/components/ui/avatar";
 import { Menu } from "~/components/ui/menu";
 import { auth } from "~/infrastructure/firebase";
+import { HeaderButton } from "./HeaderButton";
 
 export const Header = () => {
 	const router = useRouter();
@@ -88,74 +89,24 @@ export const Header = () => {
 								gap: { sm: 8 },
 							})}
 						>
-							<button
-								type="button"
-								className={css({
-									display: "inline-flex",
-									alignItems: "center",
-									cursor: "pointer",
-									px: 1,
-									pt: 1,
-									color: isActive("/doctors/home") ? "primary" : "gray.600",
-									borderBottom: isActive("/doctors/home")
-										? "2px solid"
-										: "none",
-									borderColor: isActive("/doctors/home") ? "primary" : "none",
-									_hover: {
-										color: "primary",
-									},
-								})}
+							<HeaderButton
+								text="ホーム"
+								icon={<Home />}
+								isActive={isActive("/doctors/home")}
 								onClick={() => handleLinkClick("/doctors/home")}
-							>
-								<Home className={css({ w: 5, h: 5, mr: 1 })} />
-								<span>ホーム</span>
-							</button>
-							<button
-								type="button"
-								className={css({
-									display: "inline-flex",
-									alignItems: "center",
-									cursor: "pointer",
-									px: 1,
-									pt: 1,
-									color: isActive("/doctors/chat") ? "primary" : "gray.600",
-									borderBottom: isActive("/doctors/chat")
-										? "2px solid"
-										: "none",
-									borderColor: isActive("/doctors/chat") ? "primary" : "none",
-									_hover: {
-										color: "primary",
-									},
-								})}
+							/>
+							<HeaderButton
+								text="チャット"
+								icon={<MessageCircle />}
+								isActive={isActive("/doctors/chat")}
 								onClick={() => handleLinkClick("/doctors/chat")}
-							>
-								<MessageCircle className={css({ w: 5, h: 5, mr: 1 })} />
-								<span>チャット</span>
-							</button>
-							<button
-								type="button"
-								className={css({
-									display: "inline-flex",
-									alignItems: "center",
-									cursor: "pointer",
-									px: 1,
-									pt: 1,
-									color: isActive("/patients/primary") ? "primary" : "gray.600",
-									borderBottom: isActive("/doctors/patients/primary")
-										? "2px solid"
-										: "none",
-									borderColor: isActive("/doctors/patients/primary")
-										? "primary"
-										: "none",
-									_hover: {
-										color: "primary",
-									},
-								})}
+							/>
+							<HeaderButton
+								text="患者情報"
+								icon={<UsersRound />}
+								isActive={isActive("/doctors/patients/primary")}
 								onClick={() => handleLinkClick("/doctors/patients/primary")}
-							>
-								<UsersRound className={css({ w: 5, h: 5, mr: 1 })} />
-								<span>患者情報</span>
-							</button>
+							/>
 						</div>
 					</div>
 					<Menu.Root>
