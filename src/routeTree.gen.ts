@@ -16,6 +16,7 @@ import { Route as IndexImport } from "./routes/index";
 import { Route as SigninIndexImport } from "./routes/signin/index";
 import { Route as SignupDoctorIndexImport } from "./routes/signup/doctor/index";
 import { Route as SignupAccountIndexImport } from "./routes/signup/account/index";
+import { Route as LayoutDoctorsRobotsIndexImport } from "./routes/_layout/doctors/robots/index";
 import { Route as LayoutDoctorsProfileIndexImport } from "./routes/_layout/doctors/profile/index";
 import { Route as LayoutDoctorsHomeIndexImport } from "./routes/_layout/doctors/home/index";
 import { Route as LayoutDoctorsChatIndexImport } from "./routes/_layout/doctors/chat/index";
@@ -49,6 +50,11 @@ const SignupDoctorIndexRoute = SignupDoctorIndexImport.update({
 const SignupAccountIndexRoute = SignupAccountIndexImport.update({
 	path: "/signup/account/",
 	getParentRoute: () => rootRoute,
+} as any);
+
+const LayoutDoctorsRobotsIndexRoute = LayoutDoctorsRobotsIndexImport.update({
+	path: "/doctors/robots/",
+	getParentRoute: () => LayoutRoute,
 } as any);
 
 const LayoutDoctorsProfileIndexRoute = LayoutDoctorsProfileIndexImport.update({
@@ -150,6 +156,13 @@ declare module "@tanstack/react-router" {
 			preLoaderRoute: typeof LayoutDoctorsProfileIndexImport;
 			parentRoute: typeof LayoutImport;
 		};
+		"/_layout/doctors/robots/": {
+			id: "/_layout/doctors/robots/";
+			path: "/doctors/robots";
+			fullPath: "/doctors/robots";
+			preLoaderRoute: typeof LayoutDoctorsRobotsIndexImport;
+			parentRoute: typeof LayoutImport;
+		};
 		"/_layout/doctors/calls/$channelId/": {
 			id: "/_layout/doctors/calls/$channelId/";
 			path: "/doctors/calls/$channelId";
@@ -187,6 +200,7 @@ interface LayoutRouteChildren {
 	LayoutDoctorsChatIndexRoute: typeof LayoutDoctorsChatIndexRoute;
 	LayoutDoctorsHomeIndexRoute: typeof LayoutDoctorsHomeIndexRoute;
 	LayoutDoctorsProfileIndexRoute: typeof LayoutDoctorsProfileIndexRoute;
+	LayoutDoctorsRobotsIndexRoute: typeof LayoutDoctorsRobotsIndexRoute;
 	LayoutDoctorsCallsChannelIdIndexRoute: typeof LayoutDoctorsCallsChannelIdIndexRoute;
 	LayoutDoctorsPatientsPatientIdIndexRoute: typeof LayoutDoctorsPatientsPatientIdIndexRoute;
 	LayoutDoctorsPatientsPrimaryIndexRoute: typeof LayoutDoctorsPatientsPrimaryIndexRoute;
@@ -197,6 +211,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
 	LayoutDoctorsChatIndexRoute: LayoutDoctorsChatIndexRoute,
 	LayoutDoctorsHomeIndexRoute: LayoutDoctorsHomeIndexRoute,
 	LayoutDoctorsProfileIndexRoute: LayoutDoctorsProfileIndexRoute,
+	LayoutDoctorsRobotsIndexRoute: LayoutDoctorsRobotsIndexRoute,
 	LayoutDoctorsCallsChannelIdIndexRoute: LayoutDoctorsCallsChannelIdIndexRoute,
 	LayoutDoctorsPatientsPatientIdIndexRoute:
 		LayoutDoctorsPatientsPatientIdIndexRoute,
@@ -218,6 +233,7 @@ export interface FileRoutesByFullPath {
 	"/doctors/chat": typeof LayoutDoctorsChatIndexRoute;
 	"/doctors/home": typeof LayoutDoctorsHomeIndexRoute;
 	"/doctors/profile": typeof LayoutDoctorsProfileIndexRoute;
+	"/doctors/robots": typeof LayoutDoctorsRobotsIndexRoute;
 	"/doctors/calls/$channelId": typeof LayoutDoctorsCallsChannelIdIndexRoute;
 	"/doctors/patients/$patientId": typeof LayoutDoctorsPatientsPatientIdIndexRoute;
 	"/doctors/patients/primary": typeof LayoutDoctorsPatientsPrimaryIndexRoute;
@@ -233,6 +249,7 @@ export interface FileRoutesByTo {
 	"/doctors/chat": typeof LayoutDoctorsChatIndexRoute;
 	"/doctors/home": typeof LayoutDoctorsHomeIndexRoute;
 	"/doctors/profile": typeof LayoutDoctorsProfileIndexRoute;
+	"/doctors/robots": typeof LayoutDoctorsRobotsIndexRoute;
 	"/doctors/calls/$channelId": typeof LayoutDoctorsCallsChannelIdIndexRoute;
 	"/doctors/patients/$patientId": typeof LayoutDoctorsPatientsPatientIdIndexRoute;
 	"/doctors/patients/primary": typeof LayoutDoctorsPatientsPrimaryIndexRoute;
@@ -249,6 +266,7 @@ export interface FileRoutesById {
 	"/_layout/doctors/chat/": typeof LayoutDoctorsChatIndexRoute;
 	"/_layout/doctors/home/": typeof LayoutDoctorsHomeIndexRoute;
 	"/_layout/doctors/profile/": typeof LayoutDoctorsProfileIndexRoute;
+	"/_layout/doctors/robots/": typeof LayoutDoctorsRobotsIndexRoute;
 	"/_layout/doctors/calls/$channelId/": typeof LayoutDoctorsCallsChannelIdIndexRoute;
 	"/_layout/doctors/patients/$patientId/": typeof LayoutDoctorsPatientsPatientIdIndexRoute;
 	"/_layout/doctors/patients/primary/": typeof LayoutDoctorsPatientsPrimaryIndexRoute;
@@ -266,6 +284,7 @@ export interface FileRouteTypes {
 		| "/doctors/chat"
 		| "/doctors/home"
 		| "/doctors/profile"
+		| "/doctors/robots"
 		| "/doctors/calls/$channelId"
 		| "/doctors/patients/$patientId"
 		| "/doctors/patients/primary"
@@ -280,6 +299,7 @@ export interface FileRouteTypes {
 		| "/doctors/chat"
 		| "/doctors/home"
 		| "/doctors/profile"
+		| "/doctors/robots"
 		| "/doctors/calls/$channelId"
 		| "/doctors/patients/$patientId"
 		| "/doctors/patients/primary"
@@ -294,6 +314,7 @@ export interface FileRouteTypes {
 		| "/_layout/doctors/chat/"
 		| "/_layout/doctors/home/"
 		| "/_layout/doctors/profile/"
+		| "/_layout/doctors/robots/"
 		| "/_layout/doctors/calls/$channelId/"
 		| "/_layout/doctors/patients/$patientId/"
 		| "/_layout/doctors/patients/primary/"
@@ -345,6 +366,7 @@ export const routeTree = rootRoute
         "/_layout/doctors/chat/",
         "/_layout/doctors/home/",
         "/_layout/doctors/profile/",
+        "/_layout/doctors/robots/",
         "/_layout/doctors/calls/$channelId/",
         "/_layout/doctors/patients/$patientId/",
         "/_layout/doctors/patients/primary/",
@@ -370,6 +392,10 @@ export const routeTree = rootRoute
     },
     "/_layout/doctors/profile/": {
       "filePath": "_layout/doctors/profile/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/doctors/robots/": {
+      "filePath": "_layout/doctors/robots/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/doctors/calls/$channelId/": {

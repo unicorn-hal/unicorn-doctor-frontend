@@ -1,6 +1,7 @@
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import { signOut } from "firebase/auth";
 import {
+	Bot,
 	Home,
 	LogOutIcon,
 	MessageCircle,
@@ -106,6 +107,12 @@ export const Header = () => {
 								icon={<UsersRound />}
 								isActive={isActive("/doctors/patients/primary")}
 								onClick={() => handleLinkClick("/doctors/patients/primary")}
+							/>
+							<HeaderButton
+								text="ロボット管理"
+								icon={<Bot />}
+								isActive={isActive("/doctors/robots")}
+								onClick={() => handleLinkClick("/doctors/robots")}
 							/>
 						</div>
 					</div>

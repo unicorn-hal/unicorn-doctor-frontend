@@ -28,13 +28,19 @@ export const PatientList: FC<PatientListProps> = ({ patients }) => {
 					<Table.Row>
 						<Table.Cell colSpan={3}>
 							<Box className={css({ textAlign: "center" })}>
-								かかりつけ患者がいません
+								かかりつけ患者がいません。
 							</Box>
 						</Table.Cell>
 					</Table.Row>
 				)}
 				{patients.map((patient) => (
-					<Table.Row key={patient.userID} onClick={() => handleClick(patient)}>
+					<Table.Row
+						key={patient.userID}
+						onClick={() => handleClick(patient)}
+						className={css({
+							cursor: "pointer",
+						})}
+					>
 						<Table.Cell>
 							{patient.lastName} {patient.firstName}
 						</Table.Cell>
