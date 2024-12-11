@@ -33,8 +33,8 @@ export const RobotList: FC<RobotListProps> = ({ robots }) => {
 					</Table.Row>
 				)}
 				{robots.map((robot) => (
-					<Table.Row key={robot.robotId}>
-						<Table.Cell>{robot.robotId}</Table.Cell>
+					<Table.Row key={robot.robotID}>
+						<Table.Cell>{robot.robotID}</Table.Cell>
 						<Table.Cell>{robot.robotName}</Table.Cell>
 						<Table.Cell>
 							<Badge>{convertRobotStatus(robot.status)}</Badge>

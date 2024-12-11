@@ -37,6 +37,21 @@ export const fetchURL = async (
 	});
 };
 
+export const fetchRobotURL = async (
+	url: string,
+	init?: RequestInit,
+): Promise<Response> => {
+	const token = await auth.currentUser?.getIdToken();
+	return fetch(`${import.meta.env.VITE_API_URL}${url}`, {
+		...init,
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
+			...init?.headers,
+		},
+	});
+};
+
 export const fetchRtcToken = async <T>(
 	url: string,
 	init?: RequestInit,

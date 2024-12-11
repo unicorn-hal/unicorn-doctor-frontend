@@ -1,5 +1,5 @@
 export type Robot = {
-	robotId: string;
+	robotID: string;
 	robotName: string;
 	status: RobotStatus;
 };
