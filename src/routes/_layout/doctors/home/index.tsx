@@ -47,9 +47,9 @@ function Home() {
 						/>
 					)}
 					headerToolbar={{
-						left: "prev,next today",
+						left: "today",
 						center: "title",
-						right: "dayGridMonth,timeGridWeek",
+						right: "dayGridMonth,timeGridWeek prev,next",
 					}}
 					buttonText={{
 						today: "今日",
