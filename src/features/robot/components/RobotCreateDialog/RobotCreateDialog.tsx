@@ -19,7 +19,7 @@ export const RobotCreateDialog: FC<RobotCreateDialogProps> = ({
 	onClose,
 	toaster,
 }) => {
-	const { register, onSubmit, errors } = useResisterRobot({
+	const { register, reset, onSubmit, errors } = useResisterRobot({
 		toaster,
 	});
 
@@ -29,8 +29,13 @@ export const RobotCreateDialog: FC<RobotCreateDialogProps> = ({
 		onClose();
 	};
 
+	const handleClose = () => {
+		reset();
+		onClose();
+	};
+
 	return (
-		<Dialog.Root open={open} onOpenChange={onClose}>
+		<Dialog.Root open={open} onOpenChange={handleClose}>
 			<Dialog.Backdrop />
 			<Dialog.Positioner>
 				<Dialog.Content w={"500px"}>

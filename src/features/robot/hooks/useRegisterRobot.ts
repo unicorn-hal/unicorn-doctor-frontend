@@ -14,6 +14,7 @@ export const useResisterRobot = ({
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors, isSubmitting },
 	} = useForm<RegisterRobotForm>({
 		resolver: zodResolver(registerRobotFormSchema),
@@ -72,6 +73,7 @@ export const useResisterRobot = ({
 
 	return {
 		register,
+		reset,
 		onSubmit: handleSubmit(onSubmit),
 		errors,
 		isSubmitting,
