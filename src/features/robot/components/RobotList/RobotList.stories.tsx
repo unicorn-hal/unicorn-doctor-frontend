@@ -12,12 +12,12 @@ export const Default: Story = {
 	args: {
 		robots: [
 			{
-				robotId: "1",
+				robotID: "1",
 				robotName: "ロボット1",
 				status: "robot_waiting",
 			},
 			{
-				robotId: "2",
+				robotID: "2",
 				robotName: "ロボット2",
 				status: "supporting",
 			},
