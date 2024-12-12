@@ -20,6 +20,7 @@ export const useGetRobots = () => {
 			const result = await fetchJSON<RobotResult>("/robots");
 			return result.data;
 		},
+		refetchInterval: 10000,
 	});
 
 	return {

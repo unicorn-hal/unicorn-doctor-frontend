@@ -10,6 +10,7 @@ type CallWaitingProps = {
 	doctorName: string;
 	micOn: boolean;
 	cameraOn: boolean;
+	isCalling: boolean;
 	toggleMic: () => void;
 	toggleCamera: () => void;
 	startCall: () => void;
@@ -19,6 +20,7 @@ export const CallWaiting: FC<CallWaitingProps> = ({
 	doctorName,
 	micOn,
 	cameraOn,
+	isCalling,
 	toggleMic,
 	toggleCamera,
 	startCall,
@@ -226,6 +228,7 @@ export const CallWaiting: FC<CallWaitingProps> = ({
 						size={"xl"}
 						aria-label="通話に参加する"
 						onClick={startCall}
+						loading={isCalling}
 					>
 						<PhoneCall className={css({ mr: "2" })} size={48} />
 						通話に参加する

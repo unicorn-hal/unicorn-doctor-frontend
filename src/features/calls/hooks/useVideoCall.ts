@@ -32,6 +32,7 @@ export const useVideoCall = ({
 
 	const [calling, setCalling] = useState(false);
 	const [micOn, setMic] = useState(true);
+	const [isPending, setIsPending] = useState(false);
 	const [cameraOn, setCamera] = useState(true);
 	const [isCallFinished, setIsCallFinished] = useState(false);
 	const { callReservation } = useGetCallReservation(channelId);
@@ -80,6 +81,7 @@ export const useVideoCall = ({
 		});
 
 	const startCall = async () => {
+		setIsPending(true);
 		await onDoctorEntered();
 		const result = await notification("/send", {
 			method: "POST",
@@ -132,6 +134,7 @@ export const useVideoCall = ({
 		isConnected,
 		remoteUsers,
 		isCallFinished,
+		isCalling: isPending,
 		remoteUserName: `${user?.lastName} ${user?.firstName}`,
 		startCall,
 		endCall,
