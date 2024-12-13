@@ -3,6 +3,7 @@ import {
 	Cake,
 	Mail,
 	MapPin,
+	Pencil,
 	Phone,
 	Ruler,
 	Weight,
@@ -11,11 +12,13 @@ import { FC } from "react";
 import { css } from "styled-system/css";
 import { Box } from "styled-system/jsx";
 import { Avatar } from "~/components/ui/avatar";
-import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { Text } from "~/components/ui/text";
 import { HealthCheckup } from "~/domain/health_checkup/healthCheckup";
 import { convertGender, User } from "~/domain/user/user";
+import Markdown from "react-markdown";
+import remarkBreaks from "remark-breaks";
+import { Button } from "~/components/ui/button";
 
 type PatientDetailsProps = {
 	patient: User | null;
@@ -222,36 +225,70 @@ export const PatientDetails: FC<PatientDetailsProps> = ({
 					<Card.Root
 						key={healthCheckup.healthCheckupID}
 						className={css({
-							width: "500px",
+							width: "700px",
 						})}
 					>
-						<Card.Header>
+						<Card.Body
+							className={css({
+								display: "flex",
+								flexDirection: "row",
+								gap: "1rem",
+							})}
+						>
 							<Box
 								className={css({
-									display: "flex",
-									justifyContent: "space-between",
+									width: "90%",
 								})}
 							>
-								<Box>
-									<Text fontSize={"2xl"} fontWeight={"bold"}>
-										{healthCheckup.date}
-									</Text>
-								</Box>
-								<Box>
-									<Button>編集</Button>
-								</Box>
+								<Markdown
+									remarkPlugins={[remarkBreaks]}
+									components={{
+										h1: ({ children }) => (
+											<Text
+												className={css({
+													fontSize: "2xl",
+													fontWeight: "bold",
+													margin: "1.2rem 0",
+												})}
+											>
+												{children}
+											</Text>
+										),
+										h2: ({ children }) => (
+											<Text
+												className={css({
+													fontSize: "xl",
+													fontWeight: "bold",
+													margin: "1rem 0",
+												})}
+											>
+												{children}
+											</Text>
+										),
+										p: ({ children }) => (
+											<Text
+												className={css({
+													margin: "1rem 0",
+												})}
+											>
+												{children}
+											</Text>
+										),
+									}}
+								>
+									{healthCheckup.medicalRecord}
+								</Markdown>
 							</Box>
-						</Card.Header>
-						<Card.Body>
-							<Box>
-								<span className={css({ fontWeight: "bold" })}>体温: </span>
-								<span>{healthCheckup.bodyTemperature}度</span>
+							<Box
+								className={css({
+									marginTop: "1.2rem",
+								})}
+							>
+								<Button>
+									<Pencil size={20} />
+									編集
+								</Button>
 							</Box>
-							<Box>
-								<span className={css({ fontWeight: "bold" })}>血圧: </span>
-								<span>{healthCheckup.boolPressure}</span>
-							</Box>
-							<Box>{healthCheckup.medicalRecord}</Box>
 						</Card.Body>
 					</Card.Root>
 				))}
