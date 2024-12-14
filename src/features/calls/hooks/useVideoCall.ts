@@ -86,8 +86,8 @@ export const useVideoCall = ({
 		const result = await notification("/send", {
 			method: "POST",
 			body: JSON.stringify({
-				title: "通話開始",
-				body: `${currentDoctor?.lastName} ${currentDoctor?.firstName} さんから通話がありました`,
+				title: "通話ご予約のお時間です",
+				body: `${currentDoctor?.lastName} ${currentDoctor?.firstName}先生から着信があります。`,
 				token: account?.fcmTokenId,
 			}),
 		});
