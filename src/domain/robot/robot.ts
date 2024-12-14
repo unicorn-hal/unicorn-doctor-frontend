@@ -4,7 +4,7 @@ export type Robot = {
 	status: RobotStatus;
 };
 
-type RobotStatus = "robot_waiting" | "supporting";
+type RobotStatus = "robot_waiting" | "supporting" | "shutdown";
 
 export const convertRobotStatus = (status: RobotStatus) => {
 	switch (status) {
@@ -12,5 +12,7 @@ export const convertRobotStatus = (status: RobotStatus) => {
 			return "待機中";
 		case "supporting":
 			return "対応中";
+		case "shutdown":
+			return "停止中";
 	}
 };
