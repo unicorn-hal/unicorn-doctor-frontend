@@ -4,10 +4,11 @@ import { Avatar } from "~/components/ui/avatar";
 import { Text } from "~/components/ui/text";
 
 type ChatHeaderProps = {
-	useName: string;
+	userName: string;
+	userIconUrl?: string;
 };
 
-export const ChatHeader: FC<ChatHeaderProps> = ({ useName }) => {
+export const ChatHeader: FC<ChatHeaderProps> = ({ userName, userIconUrl }) => {
 	return (
 		<div
 			className={css({
@@ -21,13 +22,13 @@ export const ChatHeader: FC<ChatHeaderProps> = ({ useName }) => {
 				paddingY: "0.5rem",
 			})}
 		>
-			<Avatar />
+			<Avatar src={userIconUrl} name={userName} />
 			<Text
 				className={css({
 					fontWeight: "semibold",
 					fontSize: "lg",
 				})}
-			>{`${useName}とのチャット`}</Text>
+			>{`${userName}とのチャット`}</Text>
 		</div>
 	);
 };

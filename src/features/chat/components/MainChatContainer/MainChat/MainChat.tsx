@@ -32,7 +32,8 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 	return (
 		<>
 			<ChatHeader
-				useName={`${selectedChat.user.lastName} ${selectedChat.user.firstName}`}
+				userIconUrl={selectedChat.user.userIconUrl || undefined}
+				userName={`${selectedChat.user.lastName} ${selectedChat.user.firstName}`}
 			/>
 			<div
 				className={css({

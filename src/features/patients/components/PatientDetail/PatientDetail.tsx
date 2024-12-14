@@ -210,8 +210,6 @@ export const PatientDetails: FC<PatientDetailsProps> = ({
 			)}
 			<Box
 				className={css({
-					backgroundColor: "gray.2",
-					padding: "1rem",
 					display: "flex",
 					flexDirection: "column",
 					gap: "10",
@@ -221,77 +219,83 @@ export const PatientDetails: FC<PatientDetailsProps> = ({
 				<Text fontSize={"2xl"} fontWeight={"bold"}>
 					検査結果
 				</Text>
-				{healthCheckups.map((healthCheckup) => (
-					<Card.Root
-						key={healthCheckup.healthCheckupID}
-						className={css({
-							width: "700px",
-						})}
-					>
-						<Card.Body
+				{healthCheckups.length > 0 ? (
+					healthCheckups.map((healthCheckup) => (
+						<Card.Root
+							key={healthCheckup.healthCheckupID}
 							className={css({
-								display: "flex",
-								flexDirection: "row",
-								gap: "1rem",
+								width: "700px",
 							})}
 						>
-							<Box
+							<Card.Body
 								className={css({
-									width: "90%",
+									display: "flex",
+									flexDirection: "row",
+									gap: "1rem",
 								})}
 							>
-								<Markdown
-									remarkPlugins={[remarkBreaks]}
-									components={{
-										h1: ({ children }) => (
-											<Text
-												className={css({
-													fontSize: "2xl",
-													fontWeight: "bold",
-													margin: "1.2rem 0",
-												})}
-											>
-												{children}
-											</Text>
-										),
-										h2: ({ children }) => (
-											<Text
-												className={css({
-													fontSize: "xl",
-													fontWeight: "bold",
-													margin: "1rem 0",
-												})}
-											>
-												{children}
-											</Text>
-										),
-										p: ({ children }) => (
-											<Text
-												className={css({
-													margin: "1rem 0",
-												})}
-											>
-												{children}
-											</Text>
-										),
-									}}
+								<Box
+									className={css({
+										width: "90%",
+									})}
 								>
-									{healthCheckup.medicalRecord}
-								</Markdown>
-							</Box>
-							<Box
-								className={css({
-									marginTop: "1.2rem",
-								})}
-							>
-								<Button>
-									<Pencil size={20} />
-									編集
-								</Button>
-							</Box>
-						</Card.Body>
-					</Card.Root>
-				))}
+									<Markdown
+										remarkPlugins={[remarkBreaks]}
+										components={{
+											h1: ({ children }) => (
+												<Text
+													className={css({
+														fontSize: "2xl",
+														fontWeight: "bold",
+														margin: "1.2rem 0",
+													})}
+												>
+													{children}
+												</Text>
+											),
+											h2: ({ children }) => (
+												<Text
+													className={css({
+														fontSize: "xl",
+														fontWeight: "bold",
+														margin: "1rem 0",
+													})}
+												>
+													{children}
+												</Text>
+											),
+											p: ({ children }) => (
+												<Text
+													className={css({
+														margin: "1rem 0",
+													})}
+												>
+													{children}
+												</Text>
+											),
+										}}
+									>
+										{healthCheckup.medicalRecord}
+									</Markdown>
+								</Box>
+								<Box
+									className={css({
+										marginTop: "1.2rem",
+									})}
+								>
+									<Button>
+										<Pencil size={20} />
+										編集
+									</Button>
+								</Box>
+							</Card.Body>
+						</Card.Root>
+					))
+				) : (
+					<Text className={css({ color: "gray.10" })}>
+						検査結果がまだ登録されていません。
+					</Text>
+				)}
 			</Box>
 		</Box>
 	);

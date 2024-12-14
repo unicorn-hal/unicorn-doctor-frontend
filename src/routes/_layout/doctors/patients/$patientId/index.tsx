@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { css } from "styled-system/css";
+import { Box } from "styled-system/jsx";
 import { PatientDetails } from "~/features/patients/components/PatientDetail/PatientDetail";
 import { useGetHealthCheckups } from "~/features/patients/hooks/useGetHealthCheckups";
 import { useGetUser } from "~/hooks/user/useGetUser";
@@ -14,7 +16,13 @@ function Page() {
 
 	return (
 		<>
-			<PatientDetails patient={user} healthCheckups={healthCheckups} />
+			<Box
+				className={css({
+					p: "8"
+				})}
+			>
+				<PatientDetails patient={user} healthCheckups={healthCheckups} />
+			</Box>
 		</>
 	);
 }
