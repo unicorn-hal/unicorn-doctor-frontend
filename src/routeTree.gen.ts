@@ -24,6 +24,7 @@ import { Route as LayoutDoctorsPatientsPrimaryIndexImport } from "./routes/_layo
 import { Route as LayoutDoctorsPatientsPatientIdIndexImport } from "./routes/_layout/doctors/patients/$patientId/index";
 import { Route as LayoutDoctorsCallsChannelIdIndexImport } from "./routes/_layout/doctors/calls/$channelId/index";
 import { Route as LayoutDoctorsCallsChannelIdEndIndexImport } from "./routes/_layout/doctors/calls/$channelId/end/index";
+import { Route as LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexImport } from "./routes/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/index";
 
 // Create/Update Routes
 
@@ -107,6 +108,15 @@ const LayoutDoctorsCallsChannelIdEndIndexRoute =
 		path: "/doctors/calls/$channelId/end/",
 		getParentRoute: () => LayoutRoute,
 	} as any);
+
+const LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute =
+	LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexImport.update(
+		{
+			id: "/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/",
+			path: "/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/",
+			getParentRoute: () => LayoutRoute,
+		} as any,
+	);
 
 // Populate the FileRoutesByPath interface
 
@@ -203,6 +213,13 @@ declare module "@tanstack/react-router" {
 			preLoaderRoute: typeof LayoutDoctorsCallsChannelIdEndIndexImport;
 			parentRoute: typeof LayoutImport;
 		};
+		"/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/": {
+			id: "/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/";
+			path: "/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit";
+			fullPath: "/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit";
+			preLoaderRoute: typeof LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexImport;
+			parentRoute: typeof LayoutImport;
+		};
 	}
 }
 
@@ -217,6 +234,7 @@ interface LayoutRouteChildren {
 	LayoutDoctorsPatientsPatientIdIndexRoute: typeof LayoutDoctorsPatientsPatientIdIndexRoute;
 	LayoutDoctorsPatientsPrimaryIndexRoute: typeof LayoutDoctorsPatientsPrimaryIndexRoute;
 	LayoutDoctorsCallsChannelIdEndIndexRoute: typeof LayoutDoctorsCallsChannelIdEndIndexRoute;
+	LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute: typeof LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute;
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
@@ -231,6 +249,8 @@ const LayoutRouteChildren: LayoutRouteChildren = {
 		LayoutDoctorsPatientsPrimaryIndexRoute,
 	LayoutDoctorsCallsChannelIdEndIndexRoute:
 		LayoutDoctorsCallsChannelIdEndIndexRoute,
+	LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute:
+		LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute,
 };
 
 const LayoutRouteWithChildren =
@@ -250,6 +270,7 @@ export interface FileRoutesByFullPath {
 	"/doctors/patients/$patientId": typeof LayoutDoctorsPatientsPatientIdIndexRoute;
 	"/doctors/patients/primary": typeof LayoutDoctorsPatientsPrimaryIndexRoute;
 	"/doctors/calls/$channelId/end": typeof LayoutDoctorsCallsChannelIdEndIndexRoute;
+	"/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit": typeof LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute;
 }
 
 export interface FileRoutesByTo {
@@ -266,6 +287,7 @@ export interface FileRoutesByTo {
 	"/doctors/patients/$patientId": typeof LayoutDoctorsPatientsPatientIdIndexRoute;
 	"/doctors/patients/primary": typeof LayoutDoctorsPatientsPrimaryIndexRoute;
 	"/doctors/calls/$channelId/end": typeof LayoutDoctorsCallsChannelIdEndIndexRoute;
+	"/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit": typeof LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute;
 }
 
 export interface FileRoutesById {
@@ -283,6 +305,7 @@ export interface FileRoutesById {
 	"/_layout/doctors/patients/$patientId/": typeof LayoutDoctorsPatientsPatientIdIndexRoute;
 	"/_layout/doctors/patients/primary/": typeof LayoutDoctorsPatientsPrimaryIndexRoute;
 	"/_layout/doctors/calls/$channelId/end/": typeof LayoutDoctorsCallsChannelIdEndIndexRoute;
+	"/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/": typeof LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute;
 }
 
 export interface FileRouteTypes {
@@ -300,7 +323,8 @@ export interface FileRouteTypes {
 		| "/doctors/calls/$channelId"
 		| "/doctors/patients/$patientId"
 		| "/doctors/patients/primary"
-		| "/doctors/calls/$channelId/end";
+		| "/doctors/calls/$channelId/end"
+		| "/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit";
 	fileRoutesByTo: FileRoutesByTo;
 	to:
 		| "/"
@@ -315,7 +339,8 @@ export interface FileRouteTypes {
 		| "/doctors/calls/$channelId"
 		| "/doctors/patients/$patientId"
 		| "/doctors/patients/primary"
-		| "/doctors/calls/$channelId/end";
+		| "/doctors/calls/$channelId/end"
+		| "/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit";
 	id:
 		| "__root__"
 		| "/"
@@ -330,7 +355,8 @@ export interface FileRouteTypes {
 		| "/_layout/doctors/calls/$channelId/"
 		| "/_layout/doctors/patients/$patientId/"
 		| "/_layout/doctors/patients/primary/"
-		| "/_layout/doctors/calls/$channelId/end/";
+		| "/_layout/doctors/calls/$channelId/end/"
+		| "/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/";
 	fileRoutesById: FileRoutesById;
 }
 
@@ -380,7 +406,8 @@ export const routeTree = rootRoute
         "/_layout/doctors/calls/$channelId/",
         "/_layout/doctors/patients/$patientId/",
         "/_layout/doctors/patients/primary/",
-        "/_layout/doctors/calls/$channelId/end/"
+        "/_layout/doctors/calls/$channelId/end/",
+        "/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/"
       ]
     },
     "/signin/": {
@@ -422,6 +449,10 @@ export const routeTree = rootRoute
     },
     "/_layout/doctors/calls/$channelId/end/": {
       "filePath": "_layout/doctors/calls/$channelId/end/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/": {
+      "filePath": "_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/index.tsx",
       "parent": "/_layout"
     }
   }

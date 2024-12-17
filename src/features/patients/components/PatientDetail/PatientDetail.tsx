@@ -19,6 +19,7 @@ import { convertGender, User } from "~/domain/user/user";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import { Button } from "~/components/ui/button";
+import { Link } from "@tanstack/react-router";
 
 type PatientDetailsProps = {
 	patient: User | null;
@@ -283,10 +284,14 @@ export const PatientDetails: FC<PatientDetailsProps> = ({
 										marginTop: "1.2rem",
 									})}
 								>
-									<Button>
-										<Pencil size={20} />
-										編集
-									</Button>
+									<Link
+										to={`/doctors/patients/${patient?.userID}/healthCheckups/${healthCheckup.healthCheckupID}/edit`}
+									>
+										<Button>
+											<Pencil size={20} />
+											編集
+										</Button>
+									</Link>
 								</Box>
 							</Card.Body>
 						</Card.Root>

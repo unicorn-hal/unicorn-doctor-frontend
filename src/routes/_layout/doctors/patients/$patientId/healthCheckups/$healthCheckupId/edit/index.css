@@ -1,0 +1,52 @@
+.w-md-editor-area {
+	background-color: white;
+	color: black;
+	-webkit-text-fill-color: black;
+}
+
+.w-md-editor-preview {
+	background-color: white;
+	-webkit-text-fill-color: black;
+}
+
+.wmde-markdown {
+	background-color: white !important;
+	-webkit-text-fill-color: black;
+}
+
+.wmde-markdown h1,
+h2,
+h3,
+p {
+	background-color: white;
+	color: black !important;
+}
+
+.wmde-markdown li {
+	list-style: circle;
+	color: black !important;
+}
+.wmde-markdown blockquote {
+	background-color: white;
+	color: black;
+}
+
+.wmde-markdown pre {
+	background-color: white !important;
+}
+
+.code-highlight {
+	background-color: white;
+	color: black !important;
+}
+
+.w-md-editor {
+	border: "none" !important;
+	border-radius: "20px" !important;
+	box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.1) !important;
+	background-color: transparent !important;
+}
+
+.w-md-editor-text {
+	padding: 20px !important;
+}
