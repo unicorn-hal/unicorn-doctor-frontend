@@ -18,7 +18,7 @@ function Page() {
 		<>
 			<Box
 				className={css({
-					p: "8"
+					p: "8",
 				})}
 			>
 				<PatientDetails patient={user} healthCheckups={healthCheckups} />

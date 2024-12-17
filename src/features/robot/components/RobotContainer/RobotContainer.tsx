@@ -42,7 +42,7 @@ export const RobotContainer: FC<RobotContainerProps> = ({
 				>
 					<Button onClick={() => setOpen(true)}>新規作成</Button>
 				</Box>
-				<RobotList robots={robots} />
+				<RobotList robots={robots} toaster={toaster} />
 			</Box>
 			<RobotCreateDialog open={open} onClose={handleClose} toaster={toaster} />
 		</>
