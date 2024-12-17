@@ -7,7 +7,8 @@ import { Badge } from "~/components/ui/badge";
 import { IconButton } from "~/components/ui/icon-button";
 import { Table } from "~/components/ui/table";
 import { convertRobotStatus, Robot } from "~/domain/robot/robot";
-import { RobotEditDialog } from "../RobotEditDialog.tsx/RobotEditDialog";
+import { RobotEditDialog } from "../RobotEditDialog/RobotEditDialog";
+import { RobotDeleteDialog } from "../RobotDeleteDialog/RobotDeleteDialog";
 
 type RobotListProps = {
 	robots: Robot[];
@@ -16,6 +17,7 @@ type RobotListProps = {
 
 export const RobotList: FC<RobotListProps> = ({ robots, toaster }) => {
 	const { open, setOpen } = useDialog();
+	const { open: deleteDialogOpen, setOpen: setDeleteDialogOpen } = useDialog();
 	const [robot, setRobot] = useState<Robot | null>(null);
 	return (
 		<>
@@ -69,6 +71,10 @@ export const RobotList: FC<RobotListProps> = ({ robots, toaster }) => {
 										className={css({
 											bgColor: "red.10",
 										})}
+										onClick={() => {
+											setRobot(robot);
+											setDeleteDialogOpen(true);
+										}}
 									>
 										<Trash />
 									</IconButton>
@@ -86,6 +92,17 @@ export const RobotList: FC<RobotListProps> = ({ robots, toaster }) => {
 						setOpen(false);
 					}}
 					open={open}
+					robot={robot}
+				/>
+			)}
+			{robot && (
+				<RobotDeleteDialog
+					toaster={toaster}
+					onClose={() => {
+						setRobot(null);
+						setDeleteDialogOpen(false);
+					}}
+					open={deleteDialogOpen}
 					robot={robot}
 				/>
 			)}
