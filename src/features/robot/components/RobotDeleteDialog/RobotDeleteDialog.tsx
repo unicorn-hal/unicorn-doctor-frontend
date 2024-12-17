@@ -36,7 +36,7 @@ export const RobotDeleteDialog: FC<RobotDeleteDialogProps> = ({
 						<Stack gap="1">
 							<Dialog.Title>ロボット削除</Dialog.Title>
 							<Dialog.Description>
-								ロボットを削除してよろしいですか？
+								"{robot.robotName}"を削除してよろしいですか？
 							</Dialog.Description>
 						</Stack>
 						<Stack gap="3" direction="row" width="full">
