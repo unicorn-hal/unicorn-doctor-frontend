@@ -1,8 +1,9 @@
 import { CreateToasterReturn } from "@ark-ui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { HealthCheckup } from "~/domain/health_checkup/healthCheckup";
 import { fetchURL } from "~/util/api";
+import { queryKey } from "./queryKey";
 
 export const useUpdateMedicalRecord = (
 	healthCheckup: HealthCheckup | undefined,
@@ -13,6 +14,7 @@ export const useUpdateMedicalRecord = (
 	const [medicalRecordValue, setMedicalRecordValue] = useState<
 		string | undefined
 	>(healthCheckup?.medicalRecord);
+	const queryClient = useQueryClient();
 
 	useEffect(() => {
 		setMedicalRecordValue(healthCheckup?.medicalRecord);
@@ -40,6 +42,9 @@ export const useUpdateMedicalRecord = (
 					type: "success",
 					title: "成功",
 					description: "保存しました",
+				});
+				queryClient.invalidateQueries({
+					queryKey: queryKey.getHealthCheckup(patientId, healthCheckupId),
 				});
 			} catch (error) {
 				toaster.create({
