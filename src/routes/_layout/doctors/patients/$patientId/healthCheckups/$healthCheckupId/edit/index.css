@@ -15,9 +15,9 @@
 }
 
 .wmde-markdown h1,
-h2,
-h3,
-p {
+.wmde-markdownh2,
+.wmde-markdownh3,
+.wmde-markdown p {
 	background-color: white;
 	color: black !important;
 }
