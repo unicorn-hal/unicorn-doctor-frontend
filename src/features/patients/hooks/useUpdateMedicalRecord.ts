@@ -20,6 +20,9 @@ export const useUpdateMedicalRecord = (
 		setMedicalRecordValue(healthCheckup?.medicalRecord);
 	}, [healthCheckup]);
 
+	const isValid =
+		!!medicalRecordValue && medicalRecordValue !== healthCheckup?.medicalRecord;
+
 	const { mutateAsync, isPending } = useMutation({
 		mutationFn: async () => {
 			try {
@@ -59,6 +62,7 @@ export const useUpdateMedicalRecord = (
 	return {
 		medicalRecordValue,
 		isPending,
+		isValid,
 		setMedicalRecordValue,
 		mutateAsync,
 	};

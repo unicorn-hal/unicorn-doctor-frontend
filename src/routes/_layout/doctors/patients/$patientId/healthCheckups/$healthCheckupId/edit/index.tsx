@@ -3,13 +3,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import MDEditor from "@uiw/react-md-editor";
 import remarkBreaks from "remark-breaks";
 import { useGetHealthCheckup } from "~/features/patients/hooks/useGetHelthCheckup";
-import { ScreenSpinner } from "~/components/common";
 import { useUpdateMedicalRecord } from "~/features/patients/hooks/useUpdateMedicalRecord";
 import { css } from "styled-system/css";
 import { Button } from "~/components/ui/button";
 import { Toast } from "~/components/ui/toast";
 import { IconButton } from "~/components/ui/icon-button";
 import { XIcon } from "lucide-react";
+import { ScreenSpinner } from "~/components/common";
 
 const toaster = Toast.createToaster({
 	placement: "top-end",
@@ -29,16 +29,27 @@ function RouteComponent() {
 		patientId,
 		healthCheckupId,
 	);
-	const { medicalRecordValue, isPending, setMedicalRecordValue, mutateAsync } =
-		useUpdateMedicalRecord(healthCheckup, patientId, healthCheckupId, toaster);
+	const {
+		medicalRecordValue,
+		isPending,
+		isValid,
+		setMedicalRecordValue,
+		mutateAsync,
+	} = useUpdateMedicalRecord(
+		healthCheckup,
+		patientId,
+		healthCheckupId,
+		toaster,
+	);
 
 	const handleClick = async () => {
 		await mutateAsync();
 	};
+
 	return (
 		<>
 			<div>
-				{isLoading && <ScreenSpinner />}
+				{isLoading && <ScreenSpinner height="80vh" />}
 				{healthCheckup && (
 					<div
 						className={css({
@@ -67,14 +78,7 @@ function RouteComponent() {
 					<Link to={`/doctors/patients/${patientId}`}>
 						<Button variant={"outline"}>キャンセル</Button>
 					</Link>
-					<Button
-						disabled={
-							!medicalRecordValue ||
-							medicalRecordValue === healthCheckup?.medicalRecord
-						}
-						loading={isPending}
-						onClick={handleClick}
-					>
+					<Button disabled={!isValid} loading={isPending} onClick={handleClick}>
 						保存
 					</Button>
 				</div>
