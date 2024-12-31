@@ -1,13 +1,20 @@
+import { Trash } from "lucide-react";
 import { FC } from "react";
 import { css } from "styled-system/css";
+import { IconButton } from "~/components/ui/icon-button";
 import { Message } from "~/domain/message/message";
 
 type MessageCardProps = {
 	message: Message;
 	doctorID: string;
+	onDelete: () => Promise<void>;
 };
 
-export const MessageCard: FC<MessageCardProps> = ({ message, doctorID }) => {
+export const MessageCard: FC<MessageCardProps> = ({
+	message,
+	doctorID,
+	onDelete,
+}) => {
 	return (
 		<div
 			key={message.messageID}
@@ -38,20 +45,33 @@ export const MessageCard: FC<MessageCardProps> = ({ message, doctorID }) => {
 				>
 					<p>{message.content}</p>
 				</div>
-				<p
+				<div
 					className={css({
-						fontSize: "xs",
-						color: "gray.500",
-						marginTop: "0.25rem",
+						display: "flex",
+						justifyContent: "flex-end",
+						alignItems: "center",
+						marginTop: "1",
+						gap: "1",
 					})}
 				>
-					{new Date(message.sentAt).toLocaleString("ja-JP", {
-						month: "numeric",
-						day: "numeric",
-						hour: "2-digit",
-						minute: "2-digit",
-					})}
-				</p>
+					<p
+						className={css({
+							fontSize: "xs",
+							color: "gray.500",
+							marginTop: "0.25rem",
+						})}
+					>
+						{new Date(message.sentAt).toLocaleString("ja-JP", {
+							month: "numeric",
+							day: "numeric",
+							hour: "2-digit",
+							minute: "2-digit",
+						})}
+					</p>
+					<IconButton variant={"ghost"} onClick={onDelete} size={"xs"}>
+						<Trash />
+					</IconButton>
+				</div>
 			</div>
 		</div>
 	);

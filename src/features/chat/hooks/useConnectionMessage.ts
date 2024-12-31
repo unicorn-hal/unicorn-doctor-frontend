@@ -12,6 +12,7 @@ interface UseConnectionMessage {
 	isPending: boolean;
 	onInputMessage: (content: string) => void;
 	sendMessage: () => void;
+	clearMessages: () => void;
 }
 
 export const useConnectionMessage = (chatID: string): UseConnectionMessage => {
@@ -80,5 +81,17 @@ export const useConnectionMessage = (chatID: string): UseConnectionMessage => {
 		setInput(content);
 	};
 
-	return { connected, messages, isPending, input, onInputMessage, sendMessage };
+	const clearMessages = () => {
+		setMessages([]);
+	};
+
+	return {
+		connected,
+		messages,
+		isPending,
+		input,
+		onInputMessage,
+		sendMessage,
+		clearMessages,
+	};
 };

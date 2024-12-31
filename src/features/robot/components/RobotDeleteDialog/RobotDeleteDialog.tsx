@@ -50,7 +50,6 @@ export const RobotDeleteDialog: FC<RobotDeleteDialogProps> = ({
 								onClick={handleSubmit}
 								variant={"solid"}
 								className={css({
-									color: "white",
 									bgColor: "red.10",
 								})}
 								loading={isPending}

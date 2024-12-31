@@ -265,6 +265,17 @@ export const PatientDetails: FC<PatientDetailsProps> = ({
 													{children}
 												</Text>
 											),
+											h3: ({ children }) => (
+												<Text
+													className={css({
+														fontSize: "lg",
+														fontWeight: "bold",
+														margin: "1rem 0",
+													})}
+												>
+													{children}
+												</Text>
+											),
 											p: ({ children }) => (
 												<Text
 													className={css({

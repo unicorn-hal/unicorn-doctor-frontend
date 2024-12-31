@@ -23,6 +23,7 @@ import { Route as LayoutDoctorsChatIndexImport } from "./routes/_layout/doctors/
 import { Route as LayoutDoctorsPatientsPrimaryIndexImport } from "./routes/_layout/doctors/patients/primary/index";
 import { Route as LayoutDoctorsPatientsPatientIdIndexImport } from "./routes/_layout/doctors/patients/$patientId/index";
 import { Route as LayoutDoctorsCallsChannelIdIndexImport } from "./routes/_layout/doctors/calls/$channelId/index";
+import { Route as LayoutDoctorsHospitalsHospitalIDNewsIndexImport } from "./routes/_layout/doctors/hospitals/$hospitalID/news/index";
 import { Route as LayoutDoctorsCallsChannelIdEndIndexImport } from "./routes/_layout/doctors/calls/$channelId/end/index";
 import { Route as LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexImport } from "./routes/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/index";
 
@@ -99,6 +100,13 @@ const LayoutDoctorsCallsChannelIdIndexRoute =
 	LayoutDoctorsCallsChannelIdIndexImport.update({
 		id: "/doctors/calls/$channelId/",
 		path: "/doctors/calls/$channelId/",
+		getParentRoute: () => LayoutRoute,
+	} as any);
+
+const LayoutDoctorsHospitalsHospitalIDNewsIndexRoute =
+	LayoutDoctorsHospitalsHospitalIDNewsIndexImport.update({
+		id: "/doctors/hospitals/$hospitalID/news/",
+		path: "/doctors/hospitals/$hospitalID/news/",
 		getParentRoute: () => LayoutRoute,
 	} as any);
 
@@ -213,6 +221,13 @@ declare module "@tanstack/react-router" {
 			preLoaderRoute: typeof LayoutDoctorsCallsChannelIdEndIndexImport;
 			parentRoute: typeof LayoutImport;
 		};
+		"/_layout/doctors/hospitals/$hospitalID/news/": {
+			id: "/_layout/doctors/hospitals/$hospitalID/news/";
+			path: "/doctors/hospitals/$hospitalID/news";
+			fullPath: "/doctors/hospitals/$hospitalID/news";
+			preLoaderRoute: typeof LayoutDoctorsHospitalsHospitalIDNewsIndexImport;
+			parentRoute: typeof LayoutImport;
+		};
 		"/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/": {
 			id: "/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/";
 			path: "/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit";
@@ -234,6 +249,7 @@ interface LayoutRouteChildren {
 	LayoutDoctorsPatientsPatientIdIndexRoute: typeof LayoutDoctorsPatientsPatientIdIndexRoute;
 	LayoutDoctorsPatientsPrimaryIndexRoute: typeof LayoutDoctorsPatientsPrimaryIndexRoute;
 	LayoutDoctorsCallsChannelIdEndIndexRoute: typeof LayoutDoctorsCallsChannelIdEndIndexRoute;
+	LayoutDoctorsHospitalsHospitalIDNewsIndexRoute: typeof LayoutDoctorsHospitalsHospitalIDNewsIndexRoute;
 	LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute: typeof LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute;
 }
 
@@ -249,6 +265,8 @@ const LayoutRouteChildren: LayoutRouteChildren = {
 		LayoutDoctorsPatientsPrimaryIndexRoute,
 	LayoutDoctorsCallsChannelIdEndIndexRoute:
 		LayoutDoctorsCallsChannelIdEndIndexRoute,
+	LayoutDoctorsHospitalsHospitalIDNewsIndexRoute:
+		LayoutDoctorsHospitalsHospitalIDNewsIndexRoute,
 	LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute:
 		LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute,
 };
@@ -270,6 +288,7 @@ export interface FileRoutesByFullPath {
 	"/doctors/patients/$patientId": typeof LayoutDoctorsPatientsPatientIdIndexRoute;
 	"/doctors/patients/primary": typeof LayoutDoctorsPatientsPrimaryIndexRoute;
 	"/doctors/calls/$channelId/end": typeof LayoutDoctorsCallsChannelIdEndIndexRoute;
+	"/doctors/hospitals/$hospitalID/news": typeof LayoutDoctorsHospitalsHospitalIDNewsIndexRoute;
 	"/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit": typeof LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute;
 }
 
@@ -287,6 +306,7 @@ export interface FileRoutesByTo {
 	"/doctors/patients/$patientId": typeof LayoutDoctorsPatientsPatientIdIndexRoute;
 	"/doctors/patients/primary": typeof LayoutDoctorsPatientsPrimaryIndexRoute;
 	"/doctors/calls/$channelId/end": typeof LayoutDoctorsCallsChannelIdEndIndexRoute;
+	"/doctors/hospitals/$hospitalID/news": typeof LayoutDoctorsHospitalsHospitalIDNewsIndexRoute;
 	"/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit": typeof LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute;
 }
 
@@ -305,6 +325,7 @@ export interface FileRoutesById {
 	"/_layout/doctors/patients/$patientId/": typeof LayoutDoctorsPatientsPatientIdIndexRoute;
 	"/_layout/doctors/patients/primary/": typeof LayoutDoctorsPatientsPrimaryIndexRoute;
 	"/_layout/doctors/calls/$channelId/end/": typeof LayoutDoctorsCallsChannelIdEndIndexRoute;
+	"/_layout/doctors/hospitals/$hospitalID/news/": typeof LayoutDoctorsHospitalsHospitalIDNewsIndexRoute;
 	"/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/": typeof LayoutDoctorsPatientsPatientIdHealthCheckupsHealthCheckupIdEditIndexRoute;
 }
 
@@ -324,6 +345,7 @@ export interface FileRouteTypes {
 		| "/doctors/patients/$patientId"
 		| "/doctors/patients/primary"
 		| "/doctors/calls/$channelId/end"
+		| "/doctors/hospitals/$hospitalID/news"
 		| "/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit";
 	fileRoutesByTo: FileRoutesByTo;
 	to:
@@ -340,6 +362,7 @@ export interface FileRouteTypes {
 		| "/doctors/patients/$patientId"
 		| "/doctors/patients/primary"
 		| "/doctors/calls/$channelId/end"
+		| "/doctors/hospitals/$hospitalID/news"
 		| "/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit";
 	id:
 		| "__root__"
@@ -356,6 +379,7 @@ export interface FileRouteTypes {
 		| "/_layout/doctors/patients/$patientId/"
 		| "/_layout/doctors/patients/primary/"
 		| "/_layout/doctors/calls/$channelId/end/"
+		| "/_layout/doctors/hospitals/$hospitalID/news/"
 		| "/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/";
 	fileRoutesById: FileRoutesById;
 }
@@ -407,6 +431,7 @@ export const routeTree = rootRoute
         "/_layout/doctors/patients/$patientId/",
         "/_layout/doctors/patients/primary/",
         "/_layout/doctors/calls/$channelId/end/",
+        "/_layout/doctors/hospitals/$hospitalID/news/",
         "/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/"
       ]
     },
@@ -449,6 +474,10 @@ export const routeTree = rootRoute
     },
     "/_layout/doctors/calls/$channelId/end/": {
       "filePath": "_layout/doctors/calls/$channelId/end/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/doctors/hospitals/$hospitalID/news/": {
+      "filePath": "_layout/doctors/hospitals/$hospitalID/news/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/doctors/patients/$patientId/healthCheckups/$healthCheckupId/edit/": {

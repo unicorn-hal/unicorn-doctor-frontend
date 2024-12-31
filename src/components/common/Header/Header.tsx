@@ -3,6 +3,7 @@ import { signOut } from "firebase/auth";
 import {
 	Bot,
 	Home,
+	Hospital,
 	LogOutIcon,
 	MessageCircle,
 	SettingsIcon,
@@ -109,6 +110,18 @@ export const Header = () => {
 								onClick={() => handleLinkClick("/doctors/patients/primary")}
 							/>
 							<HeaderButton
+								text="病院お知らせ"
+								icon={<Hospital />}
+								isActive={isActive(
+									`/doctors/hospitals/${currentDoctor?.hospital.hospitalID}/news`,
+								)}
+								onClick={() =>
+									handleLinkClick(
+										`/doctors/hospitals/${currentDoctor?.hospital.hospitalID}/news`,
+									)
+								}
+							/>
+							<HeaderButton
 								text="ロボット管理"
 								icon={<Bot />}
 								isActive={isActive("/doctors/robots")}
@@ -149,10 +162,110 @@ export const Header = () => {
 											</HStack>
 										</HStack>
 									</Menu.Item>
-									<Menu.Item value="settings">
+									<Menu.Separator />
+									<Menu.Item value="logout" onClick={handleLogout}>
+										<HStack gap="2">
+											<LogOutIcon />
+											ログアウト
+										</HStack>
+									</Menu.Item>
+								</Menu.ItemGroup>
+							</Menu.Content>
+						</Menu.Positioner>
+					</Menu.Root>
+					<Menu.Root>
+						<Menu.Trigger asChild>
+							<button
+								type="button"
+								className={css({
+									display: { base: "flex", sm: "none" },
+									ml: { sm: 6 },
+									alignItems: "center",
+									cursor: "pointer",
+									outline: "none",
+								})}
+							>
+								<Avatar src={currentDoctor?.doctorIconUrl} />
+							</button>
+						</Menu.Trigger>
+						<Menu.Positioner>
+							<Menu.Content>
+								<Menu.ItemGroup>
+									<Menu.ItemGroupLabel>
+										{currentDoctor?.email}
+									</Menu.ItemGroupLabel>
+									<Menu.Item
+										value="home"
+										onClick={() => handleLinkClick("/doctors/home")}
+									>
 										<HStack gap="6" justify="space-between" flex="1">
 											<HStack gap="2">
-												<SettingsIcon /> 設定
+												<Home />
+												ホーム
+											</HStack>
+										</HStack>
+									</Menu.Item>
+									<Menu.Separator />
+									<Menu.Item
+										value="chat"
+										onClick={() => handleLinkClick("/doctors/chat")}
+									>
+										<HStack gap="6" justify="space-between" flex="1">
+											<HStack gap="2">
+												<MessageCircle />
+												チャット
+											</HStack>
+										</HStack>
+									</Menu.Item>
+									<Menu.Separator />
+									<Menu.Item
+										value="patients"
+										onClick={() => handleLinkClick("/doctors/patients/primary")}
+									>
+										<HStack gap="6" justify="space-between" flex="1">
+											<HStack gap="2">
+												<UsersRound />
+												患者情報
+											</HStack>
+										</HStack>
+									</Menu.Item>
+									<Menu.Separator />
+									<Menu.Item
+										value="news"
+										onClick={() =>
+											handleLinkClick(
+												`/doctors/hospitals/${currentDoctor?.hospital.hospitalID}/news`,
+											)
+										}
+									>
+										<HStack gap="6" justify="space-between" flex="1">
+											<HStack gap="2">
+												<Hospital />
+												病院お知らせ
+											</HStack>
+										</HStack>
+									</Menu.Item>
+									<Menu.Separator />
+									<Menu.Item
+										value="robots"
+										onClick={() => handleLinkClick("/doctors/robots")}
+									>
+										<HStack gap="6" justify="space-between" flex="1">
+											<HStack gap="2">
+												<Bot />
+												ロボット管理
+											</HStack>
+										</HStack>
+									</Menu.Item>
+									<Menu.Separator />
+									<Menu.Item
+										value="profile"
+										onClick={() => handleLinkClick("/doctors/profile")}
+									>
+										<HStack gap="6" justify="space-between" flex="1">
+											<HStack gap="2">
+												<UserIcon />
+												医師情報
 											</HStack>
 										</HStack>
 									</Menu.Item>

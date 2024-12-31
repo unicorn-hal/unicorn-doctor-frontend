@@ -7,6 +7,7 @@ import { MessageCard } from "../MessageCard/MessageCard";
 import { MessageForm } from "../MessageForm/MessageForm";
 import { ChatHeader } from "../../ChatList/ChatHeader/ChatHeader";
 import { ScreenSpinner } from "~/components/common";
+import { useDeleteMessage } from "~/features/chat/hooks/useDeleteMessage";
 
 type MainChatProps = {
 	selectedChat: Chat;
@@ -17,8 +18,18 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 		selectedChat.chatID,
 	);
 
-	const { messages, input, isPending, sendMessage, onInputMessage } =
-		useConnectionMessage(selectedChat.chatID);
+	const {
+		messages,
+		input,
+		isPending,
+		sendMessage,
+		onInputMessage,
+		clearMessages,
+	} = useConnectionMessage(selectedChat.chatID);
+
+	const { isPending: isDeletePending, onSubmit: onDelete } = useDeleteMessage(
+		selectedChat.chatID,
+	);
 
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -28,6 +39,11 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(scrollToBottom, [messageHistories, messages]);
+
+	const handleDeleteMessage = async (messageID: string) => {
+		await onDelete(messageID);
+		clearMessages();
+	};
 
 	return (
 		<>
@@ -60,6 +76,7 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 							key={message.messageID}
 							message={message}
 							doctorID={selectedChat.doctor.doctorID}
+							onDelete={() => handleDeleteMessage(message.messageID)}
 						/>
 					))}
 				<div ref={messagesEndRef} />
@@ -67,7 +84,7 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 			<MessageForm
 				isMessageLoading={isMessageLoading}
 				input={input}
-				isPending={isPending}
+				isPending={isPending || isDeletePending}
 				onInputMessage={onInputMessage}
 				onSubmit={sendMessage}
 			/>
