@@ -68,9 +68,11 @@ export const MessageCard: FC<MessageCardProps> = ({
 							minute: "2-digit",
 						})}
 					</p>
-					<IconButton variant={"ghost"} onClick={onDelete} size={"xs"}>
-						<Trash />
-					</IconButton>
+					{message.senderID === doctorID && (
+						<IconButton variant={"ghost"} onClick={onDelete} size={"xs"}>
+							<Trash />
+						</IconButton>
+					)}
 				</div>
 			</div>
 		</div>
