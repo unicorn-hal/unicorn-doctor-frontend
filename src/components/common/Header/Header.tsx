@@ -6,7 +6,6 @@ import {
 	Hospital,
 	LogOutIcon,
 	MessageCircle,
-	SettingsIcon,
 	UserIcon,
 	UsersRound,
 } from "lucide-react";
