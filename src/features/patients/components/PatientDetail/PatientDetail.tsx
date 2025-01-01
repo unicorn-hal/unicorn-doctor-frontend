@@ -295,14 +295,16 @@ export const PatientDetails: FC<PatientDetailsProps> = ({
 										marginTop: "1.2rem",
 									})}
 								>
-									<Link
-										to={`/doctors/patients/${patient?.userID}/healthCheckups/${healthCheckup.healthCheckupID}/edit`}
-									>
-										<Button>
-											<Pencil size={20} />
-											編集
-										</Button>
-									</Link>
+									{patient && (
+										<Link
+											to={`/doctors/patients/${patient.userID}/healthCheckups/${healthCheckup.healthCheckupID}/edit`}
+										>
+											<Button>
+												<Pencil size={20} />
+												編集
+											</Button>
+										</Link>
+									)}
 								</Box>
 							</Card.Body>
 						</Card.Root>
