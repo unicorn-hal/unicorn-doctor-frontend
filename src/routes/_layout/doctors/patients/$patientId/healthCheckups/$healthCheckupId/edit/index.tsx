@@ -75,6 +75,7 @@ function RouteComponent() {
 						margin: "1rem",
 					})}
 				>
+					{/* @ts-ignore */}
 					<Link to={`/doctors/patients/${patientId}`}>
 						<Button variant={"outline"}>キャンセル</Button>
 					</Link>

@@ -296,6 +296,7 @@ export const PatientDetails: FC<PatientDetailsProps> = ({
 									})}
 								>
 									{patient && (
+										// @ts-ignore
 										<Link
 											to={`/doctors/patients/${patient.userID}/healthCheckups/${healthCheckup.healthCheckupID}/edit`}
 										>
