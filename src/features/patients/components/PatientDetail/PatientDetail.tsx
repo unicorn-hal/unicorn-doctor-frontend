@@ -295,9 +295,9 @@ export const PatientDetails: FC<PatientDetailsProps> = ({
 										marginTop: "1.2rem",
 									})}
 								>
-									{/* @ts-ignore */}
 									<Link
-										to={`/doctors/patients/${patient?.userID}/healthCheckups/${healthCheckup.healthCheckupID}/edit`}
+										// @ts-ignore
+										to={`/doctors/patients/${patient?.userID}/healthCheckups/${healthCheckup.healthCheckupID}/edit` as string}
 									>
 										<Button>
 											<Pencil size={20} />
