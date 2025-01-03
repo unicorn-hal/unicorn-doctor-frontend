@@ -7,12 +7,14 @@ import { Message } from "~/domain/message/message";
 type MessageCardProps = {
 	message: Message;
 	doctorID: string;
+	isPending: boolean;
 	onDelete: () => Promise<void>;
 };
 
 export const MessageCard: FC<MessageCardProps> = ({
 	message,
 	doctorID,
+	isPending,
 	onDelete,
 }) => {
 	return (
@@ -69,7 +71,12 @@ export const MessageCard: FC<MessageCardProps> = ({
 						})}
 					</p>
 					{message.senderID === doctorID && (
-						<IconButton variant={"ghost"} onClick={onDelete} size={"xs"}>
+						<IconButton
+							variant={"ghost"}
+							onClick={onDelete}
+							size={"xs"}
+							disabled={isPending}
+						>
 							<Trash />
 						</IconButton>
 					)}

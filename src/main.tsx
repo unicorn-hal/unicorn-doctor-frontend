@@ -1,11 +1,12 @@
+import "./index.css";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
-import "./index.css";
 import AgoraRTC, { AgoraRTCProvider } from "agora-rtc-react";
 import { routeTree } from "./routeTree.gen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider, useAuth } from "./components/providers/AuthProvider";
+import { ConfirmationDialogProvider } from "./components/common/ConfirmationDialog/ConfirmationDialogProvider";
 
 // Create a new router instance
 const router = createRouter({
@@ -39,7 +40,9 @@ if (!rootElement.innerHTML) {
 			<AuthProvider>
 				<QueryClientProvider client={queryClient}>
 					<AgoraRTCProvider client={client}>
-						<InnerApp />
+						<ConfirmationDialogProvider>
+							<InnerApp />
+						</ConfirmationDialogProvider>
 					</AgoraRTCProvider>
 				</QueryClientProvider>
 			</AuthProvider>

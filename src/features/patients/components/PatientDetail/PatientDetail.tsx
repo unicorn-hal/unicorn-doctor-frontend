@@ -297,7 +297,9 @@ export const PatientDetails: FC<PatientDetailsProps> = ({
 								>
 									<Link
 										// @ts-ignore
-										to={`/doctors/patients/${patient?.userID}/healthCheckups/${healthCheckup.healthCheckupID}/edit` as string}
+										to={
+											`/doctors/patients/${patient?.userID}/healthCheckups/${healthCheckup.healthCheckupID}/edit` as string
+										}
 									>
 										<Button>
 											<Pencil size={20} />

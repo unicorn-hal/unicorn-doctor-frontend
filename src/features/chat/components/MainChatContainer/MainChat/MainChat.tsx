@@ -8,6 +8,7 @@ import { MessageForm } from "../MessageForm/MessageForm";
 import { ChatHeader } from "../../ChatList/ChatHeader/ChatHeader";
 import { ScreenSpinner } from "~/components/common";
 import { useDeleteMessage } from "~/features/chat/hooks/useDeleteMessage";
+import { useConfirmationDialog } from "~/components/common/ConfirmationDialog/ConfirmationDialogProvider";
 
 type MainChatProps = {
 	selectedChat: Chat;
@@ -31,6 +32,8 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 		selectedChat.chatID,
 	);
 
+	const openConfirmDialog = useConfirmationDialog();
+
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 
 	const scrollToBottom = () => {
@@ -41,6 +44,11 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 	useEffect(scrollToBottom, [messageHistories, messages]);
 
 	const handleDeleteMessage = async (messageID: string) => {
+		const result = await openConfirmDialog(
+			"メッセージ削除",
+			"このメッセージを削除してよろしいですか？",
+		);
+		if (!result) return;
 		await onDelete(messageID);
 		clearMessages();
 	};
@@ -75,6 +83,7 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 						<MessageCard
 							key={message.messageID}
 							message={message}
+							isPending={isPending || isDeletePending}
 							doctorID={selectedChat.doctor.doctorID}
 							onDelete={() => handleDeleteMessage(message.messageID)}
 						/>
