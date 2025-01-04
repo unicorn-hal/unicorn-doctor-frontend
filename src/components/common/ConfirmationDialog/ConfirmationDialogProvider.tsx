@@ -13,8 +13,13 @@ type ConfirmationDialogProvider = {
 };
 
 type ConfirmationDialogContext = (
-	title: string,
-	description: string,
+{
+	title,
+	description,
+}: {
+	title: string;
+	description: string;
+}
 ) => Promise<unknown>;
 
 const ConfirmationDialogContext =
@@ -41,7 +46,13 @@ export const ConfirmationDialogProvider: FC<ConfirmationDialogProvider> = ({
 	>(null);
 
 	const openConfirmationDialog = useCallback(
-		(title: string, description: string) => {
+		({
+			title,
+			description,
+		}: {
+			title: string;
+			description: string;
+		}) => {
 			setTitle(title);
 			setDescription(description);
 			setIsOpen(true);

@@ -44,10 +44,10 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 	useEffect(scrollToBottom, [messageHistories, messages]);
 
 	const handleDeleteMessage = async (messageID: string) => {
-		const result = await openConfirmDialog(
-			"メッセージ削除",
-			"このメッセージを削除してよろしいですか？",
-		);
+		const result = await openConfirmDialog({
+			title: "メッセージ削除",
+			description: "このメッセージを削除してよろしいですか？",
+		})
 		if (!result) return;
 		await onDelete(messageID);
 		clearMessages();
