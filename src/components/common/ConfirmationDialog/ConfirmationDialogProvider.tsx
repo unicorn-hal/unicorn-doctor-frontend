@@ -12,15 +12,13 @@ type ConfirmationDialogProvider = {
 	children: ReactNode;
 };
 
-type ConfirmationDialogContext = (
-{
+type ConfirmationDialogContext = ({
 	title,
 	description,
 }: {
 	title: string;
 	description: string;
-}
-) => Promise<unknown>;
+}) => Promise<unknown>;
 
 const ConfirmationDialogContext =
 	createContext<ConfirmationDialogContext | null>(null);
