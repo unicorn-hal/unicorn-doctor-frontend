@@ -47,7 +47,7 @@ export const MainChat: FC<MainChatProps> = ({ selectedChat }) => {
 		const result = await openConfirmDialog({
 			title: "メッセージ削除",
 			description: "このメッセージを削除してよろしいですか？",
-		})
+		});
 		if (!result) return;
 		await onDelete(messageID);
 		clearMessages();
