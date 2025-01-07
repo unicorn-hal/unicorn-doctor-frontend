@@ -22,5 +22,6 @@ export const Default: Story = {
 				"https://www.tottori-med.jrc.or.jp/trch/news/2021/06/20210601.html",
 			postedDate: "2024-12-06 06:36:41.277382",
 		},
+		onDelete: () => {},
 	},
 };

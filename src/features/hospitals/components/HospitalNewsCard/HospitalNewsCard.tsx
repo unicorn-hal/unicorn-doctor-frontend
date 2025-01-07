@@ -9,12 +9,14 @@ import { HospitalNews } from "~/domain/hospital_news/hospitalNews";
 
 type HospitalNewsCardProps = {
 	hospitalNews: HospitalNews;
+	onDelete: () => void;
 };
 export const HospitalNewsCard: FC<HospitalNewsCardProps> = ({
 	hospitalNews,
+	onDelete,
 }) => {
 	return (
-		<Card.Root w={"800px"}>
+		<Card.Root w={"100%"}>
 			<Card.Header>
 				<Box
 					className={css({
@@ -28,7 +30,7 @@ export const HospitalNewsCard: FC<HospitalNewsCardProps> = ({
 						<Box>{hospitalNews.postedDate}</Box>
 					</Box>
 					<Box>
-						<IconButton variant={"subtle"}>
+						<IconButton variant={"subtle"} onClick={onDelete}>
 							<Trash />
 						</IconButton>
 					</Box>
