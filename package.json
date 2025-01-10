@@ -45,7 +45,7 @@
 		"@biomejs/biome": "1.9.3",
 		"@chromatic-com/storybook": "^3.2.2",
 		"@eslint/js": "^9.11.1",
-		"@pandacss/dev": "^0.46.1",
+		"@pandacss/dev": "^0.51.1",
 		"@park-ui/panda-preset": "^0.42.0",
 		"@storybook/addon-essentials": "^8.4.7",
 		"@storybook/addon-interactions": "^8.4.7",
