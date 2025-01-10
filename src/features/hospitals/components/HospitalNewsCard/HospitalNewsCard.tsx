@@ -44,22 +44,26 @@ export const HospitalNewsCard: FC<HospitalNewsCardProps> = ({
 				})}
 			>
 				<Box>{hospitalNews.contents}</Box>
-				<Box
-					className={css({
-						width: "300px",
-					})}
-				>
-					<img src={hospitalNews.noticeImageUrl} alt="お知らせ用画像" />
-				</Box>
+				{hospitalNews.noticeImageUrl && (
+					<Box
+						className={css({
+							width: "300px",
+						})}
+					>
+						<img src={hospitalNews.noticeImageUrl} alt="お知らせ用画像" />
+					</Box>
+				)}
 			</Card.Body>
 			<Card.Footer>
-				<Box
-					className={css({
-						color: "blue",
-					})}
-				>
-					<a href={hospitalNews.relatedUrl}>詳細を見る</a>
-				</Box>
+				{hospitalNews.relatedUrl && (
+					<Box
+						className={css({
+							color: "blue",
+						})}
+					>
+						<a href={hospitalNews.relatedUrl}>詳細を見る</a>
+					</Box>
+				)}
 			</Card.Footer>
 		</Card.Root>
 	);

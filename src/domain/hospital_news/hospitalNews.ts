@@ -4,7 +4,7 @@ export type HospitalNews = {
 	hospitalName: string;
 	title: string;
 	contents: string;
-	noticeImageUrl: string;
-	relatedUrl: string;
+	noticeImageUrl?: string;
+	relatedUrl?: string;
 	postedDate: string;
 };

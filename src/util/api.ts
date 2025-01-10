@@ -95,3 +95,13 @@ export const storageUpload = async (data: File) => {
 	const url = await getDownloadURL(imageRef);
 	return url;
 };
+
+export const newsImageUpload = async (data: File, hospitalID: string) => {
+	const imageRef = ref(
+		storage,
+		`hospitals/${hospitalID}/news/Math.floor${(100000 + Math.random() * 900000).toString()}.png`,
+	);
+	await uploadBytes(imageRef, data);
+	const url = await getDownloadURL(imageRef);
+	return url;
+};
