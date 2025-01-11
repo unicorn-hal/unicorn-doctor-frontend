@@ -40,6 +40,20 @@ export const HospitalNewsList: FC<HospitalNewsListProps> = ({
 				>
 					<Button onClick={onCreate}>新規作成</Button>
 				</Box>
+
+				{data.length === 0 && (
+					<Box
+						className={css({
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							w: "100%",
+							h: "200px",
+						})}
+					>
+						<Box>ニュースがありません</Box>
+					</Box>
+				)}
 				{data.map((hospitalNews) => (
 					<HospitalNewsCard
 						key={hospitalNews.hospitalNewsID}
