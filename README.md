@@ -94,7 +94,7 @@ pnpm install
 ## プロジェクト構造
 
 ```md
-unicorn-doctor-frontent/
+unicorn-doctor-frontend/
 ├─ src
 │  ├─ components
 │  ├─ hooks
